@@ -1,16 +1,23 @@
+import {v4 as uuidv4} from 'uuid'
 export default () => {
   
+// TODO: Add error handling for handleSubmit
+
   async function handleSubmit(e:any) {
     e.preventDefault()
 
     const file = e.target[0].files[0]
+    if (!file) return
+
     const reader = new FileReader()
 
     reader.addEventListener('load', async () => {
       try {
+        // const boundary = Math.random().toString().slice(2);
+        const boundary = uuidv4()
         const res = await fetch('http://localhost:8080', {
           method: 'POST',
-          headers: {'Content-Type': 'multipart/form-data'},
+          headers: {'Content-Type': `multipart/form-data; boundary=${boundary}`},
           body: reader.result
         })
         console.log('res: ', res)
@@ -21,7 +28,8 @@ export default () => {
       }
       // console.log(reader.result?.toString())
     })
-    reader.readAsBinaryString(file)
+    // console.log(file)
+    reader.readAsArrayBuffer(file)
 
   }
 
