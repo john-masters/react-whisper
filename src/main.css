@@ -1,0 +1,62 @@
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  text-align: center;
+  /* make a beautiful gradient background */
+  background: linear-gradient(135deg, #000000, #29a67d, #000000);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#submit {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #f1f1f1;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#file {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #f1f1f1;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+h1 {
+  color: white;
+}
