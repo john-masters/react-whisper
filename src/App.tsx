@@ -40,10 +40,16 @@ export default () => {
   //   reader.readAsArrayBuffer(file)
   // }
 
-  let file:any
+  // let file:any
 
-  const handleSubmit = () => {
+  const handleSubmit = (e:any) => {
+    e.preventDefault()
+    console.log("file: ", e)
+
+    const file = e.target[0].files[0]
+
     console.log("submitted")
+    console.log("file: ", file)
 
     const data = new FormData()
     data.append('file', file)
@@ -61,11 +67,12 @@ export default () => {
 
   }
 
-  const handleChange = (e:any) => {
-    console.log("changed")
-    const file = e.target[0].files[0]
+  // const handleChange = (e:any) => {
+  //   e.preventDefault()
+  //   console.log("changed")
+  //   const file = e.target.files[0]
 
-  }
+  // }
 
   return (
     <div className='App'>
@@ -78,7 +85,7 @@ export default () => {
             name='file'
             placeholder='Path to file'
             accept='.mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .webm'
-            onChange={handleChange}
+            // onChange={handleChange}
           />
         <input id='submit' type='submit' value='Transcribe'/>
       </form>
