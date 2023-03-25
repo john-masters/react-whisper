@@ -68,7 +68,7 @@ export default () => {
 
   return (
     <div className='App'>
-      <h1>Transcribe</h1>
+      <h1>ScribeAI</h1>
       <div className='responseContainer'>
         {handleResponse()}
       </div>

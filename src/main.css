@@ -59,8 +59,11 @@ form {
 h1 {
   color: white;
 }
+
 .spinner {
   color: white;
+  width: 2rem;
+  aspect-ratio: 1;
 }
 
 .responseText {
