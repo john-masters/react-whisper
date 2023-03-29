@@ -17,10 +17,10 @@ export default () => {
     data.append('format', format)
 
     try {
-      const res = await fetch('http://localhost:8080', {
-        method: 'POST',
-        body: data
-      })
+      const res = await fetch("https://express-whisper-production.up.railway.app/", {
+        method: "POST",
+        body: data,
+      });
 
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}\ntext: ${res.statusText}`)

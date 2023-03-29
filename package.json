@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite preview",
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "tsc && vite build --mode=production",
+    "preview": "vite preview",
+    "start": "vite preview"
   },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
