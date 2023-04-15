@@ -18,7 +18,8 @@ export default function TranscribeForm() {
     data.append('format', format)
 
     try {
-      const res = await fetch("https://express-whisper-production.up.railway.app/", {
+      // change to prod server
+      const res = await fetch("http://localhost:8080/transcribe/", {
         method: "POST",
         body: data,
       });
@@ -76,10 +77,10 @@ export default function TranscribeForm() {
       onSubmit={handleSubmit}
     >
       <input
-        id='file'
-        type='file'
-        name='file'
-        accept='.mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .webm'
+        id="file"
+        type="file"
+        name="file"
+        accept=".mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .webm"
       />
       <select name="format" id="format">
         <option value="text">Text</option>
@@ -88,14 +89,20 @@ export default function TranscribeForm() {
           <option value="vtt">VTT</option>
         </optgroup>
       </select>
-      {isLoading ? 
-        <FontAwesomeIcon className='spinner' icon={faSpinner} spin style={{marginTop: "1rem"}}/>
-      :
-        <input id='submit' type='submit' name='submit' value='Transcribe' />
+      { isLoading ? (
+          <FontAwesomeIcon
+            className="spinner"
+            icon={faSpinner}
+            spin
+            style={{ marginTop: "1rem" }}
+          />
+        ) : (
+          <>
+            <input id='submit' type='submit' name='submit' value='Transcribe' />
+            <span>{'$' + price.toFixed(2)}</span>
+          </>
+        )
       }
-
     </TranscribeFormStyles>
   )
-
-
 }
