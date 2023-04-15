@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const PaymentFormStyles = styled.form`
+export const PaymentFormStyles = styled.div`
   font-size: 16px;
   display: flex;
   justify-content: center;

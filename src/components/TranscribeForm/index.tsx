@@ -3,9 +3,14 @@ import { TranscribeFormStyles } from './TranscribeForm.styles'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 
-export default function TranscribeForm() {
+interface Props {
+  setTranscript(transcript: string): void;
+}
+
+export default function TranscribeForm(props: Props) {
   const [isLoading, setIsLoading] = useState(false)
   const [price, setPrice] = useState(0)
+  const { setTranscript } = props
 
   const handleSubmit = async (e:any) => {
     e.preventDefault()
@@ -28,9 +33,13 @@ export default function TranscribeForm() {
         throw new Error(`HTTP error! status: ${res.status}\ntext: ${res.statusText}`)
       }
 
-      const blob = await res.blob()
+      // const blob = await res.blob()
+      const text = await res.text()
+      setTranscript(text)
+      const blob = new Blob([text], { type: 'text/plain' })
+
+
       const url = window.URL.createObjectURL(blob)
-      console.log("url: ", url)
       const a = document.createElement('a')
       a.href = url
       switch (format) {

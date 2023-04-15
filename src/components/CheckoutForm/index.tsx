@@ -24,6 +24,7 @@ export default function CheckoutForm() {
         headers: {
           "Content-Type": "application/json"
         },
+        // check dev branch for up to date body
         body: JSON.stringify({items: [{ id: "xl-tshirt" }]})
       })
       .then(res => {
@@ -81,7 +82,7 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <CheckoutFormStyles id="payment-form" onSubmit={handleSubmit}>
       <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
       <button
         disabled={processing || disabled || succeeded}
@@ -109,6 +110,6 @@ export default function CheckoutForm() {
           Stripe dashboard.
         </a> Refresh the page to pay again.
       </p>
-    </form>
+    </CheckoutFormStyles>
   );
 }

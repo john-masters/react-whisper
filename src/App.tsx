@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TranscribeForm from './components/TranscribeForm'
 import Header from './components/Header'
-import PaymentForm from './components/PaymentForm'
 
 export default function App() {
+  const [transcript, setTranscipt] = useState<string>('')
+
   return (
     <>
       <Header />
-      <TranscribeForm />
+      <TranscribeForm setTranscript={setTranscipt} />
+      {transcript && <p>{transcript}</p>}
     </>
   )
 }
