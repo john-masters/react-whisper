@@ -1,5 +1,7 @@
 import styled from "styled-components"
 
-export const TranscriptFieldStyles = styled.textarea`
-  resize: none;
+export const TranscriptFieldStyles = styled.div`
+  textarea {
+    resize: none;
+  }
 `

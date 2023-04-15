@@ -5,12 +5,13 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 
 interface Props {
   setTranscript(transcript: string): void;
+  setLink(link: HTMLAnchorElement | null): void;
 }
 
 export default function TranscribeForm(props: Props) {
   const [isLoading, setIsLoading] = useState(false)
   const [price, setPrice] = useState(0)
-  const { setTranscript } = props
+  const { setTranscript, setLink } = props
 
   const handleSubmit = async (e:any) => {
     e.preventDefault()
@@ -33,15 +34,14 @@ export default function TranscribeForm(props: Props) {
         throw new Error(`HTTP error! status: ${res.status}\ntext: ${res.statusText}`)
       }
 
-      // const blob = await res.blob()
       const text = await res.text()
       setTranscript(text)
       const blob = new Blob([text], { type: 'text/plain' })
 
-
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
+
       switch (format) {
         case 'srt':
           a.download = `${file.name}.srt`
@@ -53,9 +53,8 @@ export default function TranscribeForm(props: Props) {
           a.download = `${file.name}.txt`
           break
       }
-      a.click()
-      a.remove()
 
+      setLink(a)
     }
     catch (err) {
       console.log('Fetch error: ', err)
@@ -82,7 +81,6 @@ export default function TranscribeForm(props: Props) {
 
   return (
     <TranscribeFormStyles
-      onChange={handleChange}
       onSubmit={handleSubmit}
     >
       <input
@@ -90,6 +88,7 @@ export default function TranscribeForm(props: Props) {
         type="file"
         name="file"
         accept=".mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .webm"
+        onChange={handleChange}
       />
       <select name="format" id="format">
         <option value="text">Text</option>

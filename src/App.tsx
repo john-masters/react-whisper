@@ -6,6 +6,7 @@ import TranscriptField from './components/TranscriptField'
 
 export default function App() {
   const [transcript, setTranscipt] = useState<string>('')
+  const [link, setLink] = useState<HTMLAnchorElement | null>(null)
 
   const App = styled.div`
     display: flex;
@@ -17,8 +18,8 @@ export default function App() {
   return (
     <App>
       <Header />
-      <TranscribeForm setTranscript={setTranscipt} />
-      <TranscriptField transcript={transcript} />
+      <TranscribeForm setTranscript={setTranscipt} setLink={setLink} />
+      <TranscriptField transcript={transcript} link={link} />
     </App>
   )
 }
