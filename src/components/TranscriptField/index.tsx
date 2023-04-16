@@ -11,11 +11,16 @@ export default function TranscriptField(props: Props) {
 
   return (
     <TranscriptFieldStyles >
-      <textarea 
-        disabled={true}
-        value={transcript}
-      />
-      {link ? <div onClick={() => link.click()}>Download</div> : null}
+      { link && (
+        <>
+          <div>
+            {transcript}
+          </div>
+          <div onClick={() => link.click()}>
+            Download
+          </div>
+        </>
+      )}
     </TranscriptFieldStyles>
   )
 }
