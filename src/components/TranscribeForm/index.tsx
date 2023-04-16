@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { TranscribeFormStyles } from './TranscribeForm.styles'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSpinner } from "@fortawesome/free-solid-svg-icons"
+import PaymentForm from '../PaymentForm';
 
 interface Props {
   setTranscript(transcript: string): void;
@@ -97,7 +98,13 @@ export default function TranscribeForm(props: Props) {
           <option value="vtt">VTT</option>
         </optgroup>
       </select>
-      { isLoading ? (
+      { price !== 0 && (
+        <>
+          <span>{'$' + price.toFixed(2)}</span>
+          <PaymentForm />
+        </>
+      )}
+      {/* { isLoading ? (
           <FontAwesomeIcon
             className="spinner"
             icon={faSpinner}
@@ -110,7 +117,7 @@ export default function TranscribeForm(props: Props) {
             <span>{'$' + price.toFixed(2)}</span>
           </>
         )
-      }
+      } */}
     </TranscribeFormStyles>
   )
 }

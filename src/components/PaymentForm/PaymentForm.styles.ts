@@ -5,8 +5,6 @@ export const PaymentFormStyles = styled.div`
   display: flex;
   justify-content: center;
   align-content: center;
-  height: 100vh;
-  width: 100vw;
 
   form {
     width: 30vw;

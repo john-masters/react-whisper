@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { CheckoutFormStyles } from './CheckoutForm.styles'
+import type { StripeCardElement } from '@stripe/stripe-js'
 import {
   CardElement,
   useStripe,
@@ -8,8 +9,8 @@ import {
 
 export default function CheckoutForm() {
   const [succeeded, setSucceeded] = useState(false)
-  const [error, setError] = useState(null)
-  const [processing, setProcessing] = useState('')
+  const [error, setError] = useState<string | null>(null)
+  const [processing, setProcessing] = useState<boolean | null>(null)
   const [disabled, setDisabled] = useState(true)
   const [clientSecret, setClientSecret] = useState('')
   const stripe = useStripe()
@@ -65,9 +66,11 @@ export default function CheckoutForm() {
     e.preventDefault();
     setProcessing(true);
 
+    if (!stripe || !elements) return
+
     const payload = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
-        card: elements.getElement(CardElement)
+        card: elements.getElement(CardElement) as StripeCardElement
       }
     });
 
