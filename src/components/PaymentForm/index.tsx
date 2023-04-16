@@ -6,11 +6,18 @@ import CheckoutForm from '../CheckoutForm'
 
 const promise = loadStripe("pk_test_51MpVLcJD5XPjP7WOM5mkku4D4U3WRWHgPOtwdbLQeeqtPkZjD9LK6dKiJNiSDILUnvd6vJ8QSYSeq3JNxzmwFqNf00kF49ElzP")
 
-export default function PaymentForm() {
+interface Props {
+  file: File | null;
+}
+
+export default function PaymentForm(props: Props) {
+  const { file } = props
+
+
   return (
     <PaymentFormStyles>
       <Elements stripe={promise}>
-        <CheckoutForm />
+        <CheckoutForm file={file} />
       </Elements>
     </PaymentFormStyles>
   )

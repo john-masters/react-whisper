@@ -12,7 +12,11 @@ interface Props {
 export default function TranscribeForm(props: Props) {
   const [isLoading, setIsLoading] = useState(false)
   const [price, setPrice] = useState(0)
-  const { setTranscript, setLink } = props
+  const [file, setFile] = useState<File | null>(null)
+  const {
+    setTranscript,
+    setLink,
+  } = props
 
   const handleSubmit = async (e:any) => {
     e.preventDefault()
@@ -21,6 +25,7 @@ export default function TranscribeForm(props: Props) {
     const file = e.target[0].files[0]
     const format = e.target[1].value
     const data = new FormData()
+    setFile(file)
     data.append('file', file)
     data.append('format', format)
 
@@ -101,7 +106,7 @@ export default function TranscribeForm(props: Props) {
       { price !== 0 && (
         <>
           <span>{'$' + price.toFixed(2)}</span>
-          <PaymentForm />
+          <PaymentForm file={file} />
         </>
       )}
       {/* { isLoading ? (

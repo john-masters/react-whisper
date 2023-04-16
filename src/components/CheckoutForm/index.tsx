@@ -7,7 +7,11 @@ import {
   useElements
 } from '@stripe/react-stripe-js'
 
-export default function CheckoutForm() {
+interface Props {
+  file: File | null;
+}
+
+export default function CheckoutForm(props: Props) {
   const [succeeded, setSucceeded] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [processing, setProcessing] = useState<boolean | null>(null)
@@ -15,26 +19,30 @@ export default function CheckoutForm() {
   const [clientSecret, setClientSecret] = useState('')
   const stripe = useStripe()
   const elements = useElements()
+  const { file } = props
 
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    window
-      .fetch("/create-payment-intent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        // check dev branch for up to date body
-        body: JSON.stringify({items: [{ id: "xl-tshirt" }]})
-      })
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        setClientSecret(data.clientSecret);
-      });
-  }, []);
+    const createPaymentIntent = async () => {
+      try {
+        const res = await fetch('http://localhost:8080/create-payment-intent', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          // modify body to send file so that it can calculate file size / copy transcribe form
+          body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] })
+        })
+        const data = await res.json()
+        setClientSecret(data.clientSecret)
+      } catch (err) {
+        console.log('Fetch error: ', err)
+      }
+    }
+
+    createPaymentIntent()
+  }, [])
 
   const cardStyle = {
     style: {
