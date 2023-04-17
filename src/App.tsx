@@ -7,6 +7,8 @@ import { AppStyles } from './App.styles'
 export default function App() {
   const [transcript, setTranscipt] = useState<string>('')
   const [link, setLink] = useState<HTMLAnchorElement | null>(null)
+  const [format, setFormat] = useState<string>('text')
+
 
   return (
     <AppStyles>
@@ -14,11 +16,15 @@ export default function App() {
       <TranscribeForm
         setTranscript={setTranscipt}
         setLink={setLink}
+        setFormat={setFormat}
       />
-      <TranscriptField
-        transcript={transcript}
-        link={link}
-      />
+      {transcript && (
+        <TranscriptField
+          transcript={transcript}
+          link={link}
+          format={format}
+        />
+      )}
     </AppStyles>
   )
 }

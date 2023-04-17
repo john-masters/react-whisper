@@ -7,15 +7,17 @@ import PaymentForm from '../PaymentForm';
 interface Props {
   setTranscript(transcript: string): void;
   setLink(link: HTMLAnchorElement | null): void;
+  setFormat(format: string): void;
 }
 
 export default function TranscribeForm(props: Props) {
-  const [isLoading, setIsLoading] = useState(false)
-  const [price, setPrice] = useState(0)
+  const [isLoading, setIsLoading] = useState<Boolean>(false)
+  const [price, setPrice] = useState<Number>(0)
   const [file, setFile] = useState<File | null>(null)
   const {
     setTranscript,
     setLink,
+    setFormat
   } = props
 
   const handleSubmit = async (e:any) => {
@@ -26,6 +28,7 @@ export default function TranscribeForm(props: Props) {
     const format = e.target[1].value
     const data = new FormData()
     setFile(file)
+    setFormat(format)
     data.append('file', file)
     data.append('format', format)
 
@@ -103,13 +106,13 @@ export default function TranscribeForm(props: Props) {
           <option value="vtt">VTT</option>
         </optgroup>
       </select>
-      { price !== 0 && (
+      {/* { price !== 0 && (
         <>
           <span>{'$' + price.toFixed(2)}</span>
           <PaymentForm file={file} />
         </>
-      )}
-      {/* { isLoading ? (
+      )} */}
+      { isLoading ? (
           <FontAwesomeIcon
             className="spinner"
             icon={faSpinner}
@@ -122,7 +125,7 @@ export default function TranscribeForm(props: Props) {
             <span>{'$' + price.toFixed(2)}</span>
           </>
         )
-      } */}
+      }
     </TranscribeFormStyles>
   )
 }
