@@ -12,7 +12,7 @@ interface Props {
 
 export default function TranscribeForm(props: Props) {
   const [isLoading, setIsLoading] = useState<Boolean>(false)
-  const [price, setPrice] = useState<Number>(0)
+  const [price, setPrice] = useState<number>(0)
   const [file, setFile] = useState<File | null>(null)
   const {
     setTranscript,
@@ -106,13 +106,10 @@ export default function TranscribeForm(props: Props) {
           <option value="vtt">VTT</option>
         </optgroup>
       </select>
-      {/* { price !== 0 && (
-        <>
-          <span>{'$' + price.toFixed(2)}</span>
-          <PaymentForm file={file} />
-        </>
-      )} */}
-      { isLoading ? (
+      { price !== 0 && (
+        <PaymentForm file={file} price={price} />
+      )}
+      {/* { isLoading ? (
           <FontAwesomeIcon
             className="spinner"
             icon={faSpinner}
@@ -125,7 +122,7 @@ export default function TranscribeForm(props: Props) {
             <span>{'$' + price.toFixed(2)}</span>
           </>
         )
-      }
+      } */}
     </TranscribeFormStyles>
   )
 }

@@ -9,6 +9,7 @@ import {
 
 interface Props {
   file: File | null;
+  price: number;
 }
 
 export default function CheckoutForm(props: Props) {
@@ -19,7 +20,11 @@ export default function CheckoutForm(props: Props) {
   const [clientSecret, setClientSecret] = useState('')
   const stripe = useStripe()
   const elements = useElements()
-  const { file } = props
+
+  const {
+    file,
+    price
+  } = props
 
 
   useEffect(() => {
@@ -103,7 +108,7 @@ export default function CheckoutForm(props: Props) {
           {processing ? (
             <div className="spinner" id="spinner"></div>
           ) : (
-            "Pay now"
+            `Pay ${'$' + price.toFixed(2)} to transcribe now`
           )}
         </span>
       </button>
