@@ -8,16 +8,20 @@ interface Props {
   setTranscript(transcript: string): void;
   setLink(link: HTMLAnchorElement | null): void;
   setFormat(format: string): void;
+  price: number;
+  setPrice(price: number): void;
+  setFile(file: File | null): void;
 }
 
 export default function TranscribeForm(props: Props) {
   const [isLoading, setIsLoading] = useState<Boolean>(false)
-  const [price, setPrice] = useState<number>(0)
-  const [file, setFile] = useState<File | null>(null)
   const {
     setTranscript,
     setLink,
-    setFormat
+    setFormat,
+    price,
+    setPrice,
+    setFile
   } = props
 
   const handleSubmit = async (e:any) => {
@@ -106,10 +110,7 @@ export default function TranscribeForm(props: Props) {
           <option value="vtt">VTT</option>
         </optgroup>
       </select>
-      { price !== 0 && (
-        <PaymentForm file={file} price={price} />
-      )}
-      {/* { isLoading ? (
+      { isLoading ? (
           <FontAwesomeIcon
             className="spinner"
             icon={faSpinner}
@@ -122,7 +123,7 @@ export default function TranscribeForm(props: Props) {
             <span>{'$' + price.toFixed(2)}</span>
           </>
         )
-      } */}
+      }
     </TranscribeFormStyles>
   )
 }
