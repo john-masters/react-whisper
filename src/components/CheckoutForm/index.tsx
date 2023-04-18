@@ -31,13 +31,17 @@ export default function CheckoutForm(props: Props) {
     // Create PaymentIntent as soon as the page loads
     const createPaymentIntent = async () => {
       try {
+        const formData = new FormData()
+        if (!file) return
+        formData.append('file', file)
+
         const res = await fetch('http://localhost:8080/create-payment-intent', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          // modify body to send file so that it can calculate file size / copy transcribe form
-          body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] })
+          body: formData
+          // body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] })
         })
         const data = await res.json()
         setClientSecret(data.clientSecret)
