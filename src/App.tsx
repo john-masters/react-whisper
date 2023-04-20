@@ -9,9 +9,13 @@ export default function App() {
   const [transcript, setTranscipt] = useState<string>('')
   const [link, setLink] = useState<HTMLAnchorElement | null>(null)
   const [format, setFormat] = useState<string>('text')
-
   const [price, setPrice] = useState<number>(0)
   const [file, setFile] = useState<File | null>(null)
+  const [paymentSucceeded, setPaymentSucceeded] = useState<boolean>(false)
+
+  const handlePaymentSuccess = (succeeded: boolean) => {
+    setPaymentSucceeded(succeeded)
+  }
 
 
   return (
@@ -24,10 +28,15 @@ export default function App() {
         price={price}
         setPrice={setPrice}
         setFile={setFile}
+        paymentSucceeded={paymentSucceeded}
       />
 
-      { price !== 0 && (
-        <PaymentForm file={file} price={price} />
+      {file && (
+        <PaymentForm
+          file={file}
+          price={price}
+          onPaymentSuccess={handlePaymentSuccess}
+        />
       )}
 
       {transcript && (

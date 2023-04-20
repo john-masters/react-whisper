@@ -10,6 +10,7 @@ import {
 interface Props {
   file: File | null;
   price: number;
+  onPaymentSuccess(succeeded: boolean): void;
 }
 
 export default function CheckoutForm(props: Props) {
@@ -23,27 +24,31 @@ export default function CheckoutForm(props: Props) {
 
   const {
     file,
-    price
+    price,
+    onPaymentSuccess
   } = props
 
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     const createPaymentIntent = async () => {
+      console.log('creating payment intent')
       try {
         const formData = new FormData()
         if (!file) return
         formData.append('file', file)
 
+        console.log('starting fetch')
         const res = await fetch('http://localhost:8080/create-payment-intent', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          // headers: {
+          //   'Content-Type': 'application/json'
+          // },
           body: formData
           // body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] })
         })
         const data = await res.json()
+        console.log('data: ', data)
         setClientSecret(data.clientSecret)
       } catch (err) {
         console.log('Fetch error: ', err)
@@ -92,12 +97,13 @@ export default function CheckoutForm(props: Props) {
     });
 
     if (payload.error) {
-      setError(`Payment failed ${payload.error.message}`);
-      setProcessing(false);
+      setError(`Payment failed ${payload.error.message}`)
+      setProcessing(false)
     } else {
-      setError(null);
-      setProcessing(false);
-      setSucceeded(true);
+      setError(null)
+      setProcessing(false)
+      setSucceeded(true)
+      onPaymentSuccess(true)
     }
   };
 

@@ -9,19 +9,25 @@ const promise = loadStripe("pk_test_51MpVLcJD5XPjP7WOM5mkku4D4U3WRWHgPOtwdbLQeeq
 interface Props {
   file: File | null;
   price: number;
+  onPaymentSuccess(succeeded: boolean): void;
 }
 
 export default function PaymentForm(props: Props) {
   const {
     file,
-    price
+    price,
+    onPaymentSuccess
   } = props
 
 
   return (
     <PaymentFormStyles>
       <Elements stripe={promise}>
-        <CheckoutForm file={file} price={price} />
+        <CheckoutForm
+          file={file}
+          price={price}
+          onPaymentSuccess={onPaymentSuccess}
+        />
       </Elements>
     </PaymentFormStyles>
   )

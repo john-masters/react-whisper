@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { TranscribeFormStyles } from './TranscribeForm.styles'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSpinner } from "@fortawesome/free-solid-svg-icons"
@@ -11,18 +11,31 @@ interface Props {
   price: number;
   setPrice(price: number): void;
   setFile(file: File | null): void;
+  paymentSucceeded: boolean;
 }
 
 export default function TranscribeForm(props: Props) {
   const [isLoading, setIsLoading] = useState<Boolean>(false)
+  const formRef = useRef<HTMLFormElement>(null); // Add this line to create a form ref
+
   const {
     setTranscript,
     setLink,
     setFormat,
     price,
     setPrice,
-    setFile
+    setFile,
+    paymentSucceeded
   } = props
+  
+  useEffect (() => {
+    if (paymentSucceeded && formRef.current) {
+      console.log('ref: ', formRef.current)
+      // formRef.current?.submit()
+      const submitButton = formRef.current.querySelector("#submit")
+      submitButton?.click()
+    }
+  }, [paymentSucceeded])
 
   const handleSubmit = async (e:any) => {
     e.preventDefault()
@@ -31,7 +44,6 @@ export default function TranscribeForm(props: Props) {
     const file = e.target[0].files[0]
     const format = e.target[1].value
     const data = new FormData()
-    setFile(file)
     setFormat(format)
     data.append('file', file)
     data.append('format', format)
@@ -80,6 +92,7 @@ export default function TranscribeForm(props: Props) {
     e.preventDefault()
     const file = e.target.files[0]
     if (!file) return
+    setFile(file)
     const audioObj = new Audio(URL.createObjectURL(file));
 
     audioObj.addEventListener('loadedmetadata', () => {
@@ -94,6 +107,7 @@ export default function TranscribeForm(props: Props) {
 
   return (
     <TranscribeFormStyles
+      ref={formRef}
       onSubmit={handleSubmit}
     >
       <input
@@ -119,7 +133,13 @@ export default function TranscribeForm(props: Props) {
           />
         ) : (
           <>
-            <input id='submit' type='submit' name='submit' value='Transcribe' />
+            <input
+              id='submit'
+              type='submit'
+              name='submit'
+              value='Transcribe'
+              style={{display: 'none'}}
+            />
             <span>{'$' + price.toFixed(2)}</span>
           </>
         )
