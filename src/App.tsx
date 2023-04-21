@@ -19,7 +19,9 @@ export default function App() {
 
   return (
     <AppStyles>
+
       <Header />
+
       <TranscribeForm
         setTranscript={setTranscipt}
         setLink={setLink}
@@ -30,7 +32,7 @@ export default function App() {
         paymentSucceeded={paymentSucceeded}
       />
 
-      {file && (
+      {file && !paymentSucceeded && (
         <PaymentForm
           file={file}
           price={price}
@@ -45,6 +47,7 @@ export default function App() {
           format={format}
         />
       )}
+
     </AppStyles>
   )
 }
