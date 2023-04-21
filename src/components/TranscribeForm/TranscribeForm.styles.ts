@@ -4,9 +4,17 @@ export const TranscribeFormStyles = styled.form`
   font-family: sans-serif;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 0.5rem;
-  padding: 1rem;
-  border: 1px solid black;
+  input[type="file"] {
+    font-size: medium;
+  }
+  .formatContainer {
+    display: flex;
+    gap: 0.5rem;
+    select {
+      font-size: medium;
+    }
+
+  }
+
 `

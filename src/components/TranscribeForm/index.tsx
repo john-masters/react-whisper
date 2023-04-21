@@ -114,13 +114,17 @@ export default function TranscribeForm(props: Props) {
         accept=".mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .webm"
         onChange={handleChange}
       />
-      <select name="format" id="format">
-        <option value="text">Text</option>
-        <optgroup label="Caption files">
-          <option value="srt">SRT</option>
-          <option value="vtt">VTT</option>
-        </optgroup>
-      </select>
+
+      <div className='formatContainer'>
+        <label htmlFor='format'>Format: </label>
+        <select name="format" id="format">
+          <option value="text">Text</option>
+          <optgroup label="Caption files">
+            <option value="srt">SRT</option>
+            <option value="vtt">VTT</option>
+          </optgroup>
+        </select>
+      </div>
 
       {isLoading && (
         <FontAwesomeIcon
