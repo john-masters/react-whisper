@@ -30,10 +30,7 @@ export default function TranscribeForm(props: Props) {
   
   useEffect (() => {
     if (paymentSucceeded && formRef.current) {
-      console.log('ref: ', formRef.current)
-      // formRef.current?.submit()
-      const submitButton = formRef.current.querySelector("#submit")
-      submitButton?.click()
+      formRef.current?.requestSubmit()
     }
   }, [paymentSucceeded])
 
@@ -124,26 +121,16 @@ export default function TranscribeForm(props: Props) {
           <option value="vtt">VTT</option>
         </optgroup>
       </select>
-      { isLoading ? (
-          <FontAwesomeIcon
-            className="spinner"
-            icon={faSpinner}
-            spin
-            style={{ marginTop: "1rem" }}
-          />
-        ) : (
-          <>
-            <input
-              id='submit'
-              type='submit'
-              name='submit'
-              value='Transcribe'
-              style={{display: 'none'}}
-            />
-            <span>{'$' + price.toFixed(2)}</span>
-          </>
-        )
-      }
+
+      {isLoading && (
+        <FontAwesomeIcon
+        className="spinner"
+        icon={faSpinner}
+        spin
+        style={{ marginTop: "1rem" }}
+      />
+      )}
+
     </TranscribeFormStyles>
   )
 }

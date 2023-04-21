@@ -32,13 +32,11 @@ export default function CheckoutForm(props: Props) {
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     const createPaymentIntent = async () => {
-      console.log('creating payment intent')
       try {
         const formData = new FormData()
         if (!file) return
         formData.append('file', file)
 
-        console.log('starting fetch')
         const res = await fetch('http://localhost:8080/create-payment-intent', {
           method: 'POST',
           // headers: {
@@ -48,7 +46,6 @@ export default function CheckoutForm(props: Props) {
           // body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] })
         })
         const data = await res.json()
-        console.log('data: ', data)
         setClientSecret(data.clientSecret)
       } catch (err) {
         console.log('Fetch error: ', err)

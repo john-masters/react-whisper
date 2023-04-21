@@ -17,7 +17,6 @@ export default function App() {
     setPaymentSucceeded(succeeded)
   }
 
-
   return (
     <AppStyles>
       <Header />
