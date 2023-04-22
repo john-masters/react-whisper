@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import TranscriptField from "./components/TranscriptField";
 import { AppStyles } from "./App.styles";
 import PaymentForm from "./components/PaymentForm";
+import LightDarkMode from "./components/LightDarkMode";
 
 export default function App() {
   const [transcript, setTranscipt] = useState<string>("");
@@ -12,17 +13,23 @@ export default function App() {
   const [priceInCents, setPriceInCents] = useState<number>(0);
   const [file, setFile] = useState<File | null>(null);
   const [paymentSucceeded, setPaymentSucceeded] = useState<boolean>(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   const handlePaymentSuccess = (succeeded: boolean) => {
     setPaymentSucceeded(succeeded);
   };
 
   return (
-    <AppStyles>
+    <AppStyles isDarkMode={isDarkMode}>
+      <LightDarkMode
+        isDarkMode={isDarkMode}
+        setIsDarkMode={setIsDarkMode}
+      />
       <Header />
 
       {!transcript ? (
         <TranscribeForm
+          isDarkMode={isDarkMode}
           setTranscript={setTranscipt}
           setLink={setLink}
           setFormat={setFormat}

@@ -3,6 +3,8 @@ import { TranscribeFormStyles } from "./TranscribeForm.styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import PaymentForm from "../PaymentForm";
+import FileInput from "../FileInput";
+import FormatInput from "../FormatInput";
 
 interface Props {
   setTranscript(transcript: string): void;
@@ -13,6 +15,7 @@ interface Props {
   file: File | null;
   setFile(file: File | null): void;
   paymentSucceeded: boolean;
+  isDarkMode: boolean;
 }
 
 export default function TranscribeForm(props: Props) {
@@ -28,6 +31,7 @@ export default function TranscribeForm(props: Props) {
     file,
     setFile,
     paymentSucceeded,
+    isDarkMode,
   } = props;
 
   useEffect(() => {
@@ -88,60 +92,25 @@ export default function TranscribeForm(props: Props) {
     setIsLoading(false);
   };
 
-  const handleChange = (e: any) => {
-    e.preventDefault();
-    const file = e.target.files[0];
-    if (!file) return;
-    setFile(file);
-    const audioObj = new Audio(URL.createObjectURL(file));
-
-    audioObj.addEventListener("loadedmetadata", () => {
-      const durationInSeconds = audioObj.duration;
-      const durationInMinutes = durationInSeconds / 60;
-
-      const centsPerMinute: number = 5;
-
-      let totalPrice = Math.floor(durationInMinutes * centsPerMinute);
-      totalPrice = Math.max(totalPrice, 50);
-
-      setPriceInCents(totalPrice);
-      URL.revokeObjectURL(audioObj.src);
-    });
-  };
-
   return (
     <TranscribeFormStyles ref={formRef} onSubmit={handleSubmit}>
-      <div className="fileContainer">
-        <label htmlFor="file">
-          <span style={{ color: file ? "green" : "inherit" }}>
-            {file ? file.name : "Upload file"}
-          </span>
 
-          <input
-            id="file"
-            type="file"
-            name="file"
-            accept=".mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .webm"
-            onChange={handleChange}
-          />
-        </label>
-      </div>
+      <FileInput
+        file={file}
+        setFile={setFile}
+        setPriceInCents={setPriceInCents}
+        isDarkMode={isDarkMode}
+      />
 
-      <div className="formatContainer">
-        <label htmlFor="format">Format: </label>
-        <select name="format" id="format">
-          <option value="text">Text</option>
-          <optgroup label="Caption files">
-            <option value="srt">SRT</option>
-            <option value="vtt">VTT</option>
-          </optgroup>
-        </select>
-      </div>
+      <FormatInput
+        isDarkMode={isDarkMode}
+      />
 
       {isLoading && (
         <FontAwesomeIcon
           className="spinner"
           icon={faSpinner}
+          size='2xl'
           spin
           style={{ marginTop: "1rem" }}
         />
