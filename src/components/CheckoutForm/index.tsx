@@ -97,11 +97,13 @@ export default function CheckoutForm(props: Props) {
 
   return (
     <CheckoutFormStyles id="payment-form" onSubmit={handleSubmit}>
+
       <CardElement
         id="card-element"
         options={cardStyle}
         onChange={handleChange}
       />
+
       <button disabled={processing || disabled || succeeded} id="submit">
         <span id="button-text">
           {processing ? (
@@ -111,12 +113,14 @@ export default function CheckoutForm(props: Props) {
           )}
         </span>
       </button>
+
       {/* Show any error that happens when processing the payment */}
       {error && (
         <div className="card-error" role="alert">
           {error}
         </div>
       )}
+
       {/* Show a success message upon completion */}
       <p className={succeeded ? "result-message" : "result-message hidden"}>
         Payment succeeded, see the result in your
@@ -126,6 +130,7 @@ export default function CheckoutForm(props: Props) {
         </a>{" "}
         Refresh the page to pay again.
       </p>
+
     </CheckoutFormStyles>
   );
 }

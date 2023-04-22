@@ -9,9 +9,10 @@ export const TranscriptFieldStyles = styled.div`
   gap: 0.5rem;
   padding: 0.5rem;
   border: 1px solid black;
-  width: 30%;
+  border-radius: 8px;
   #transcriptField {
     border: 1px dashed black;
+    border-radius: 8px;
     white-space: pre-wrap;
     max-height: 50vh;
     overflow-y: scroll;

@@ -15,7 +15,12 @@ interface Props {
 }
 
 export default function PaymentForm(props: Props) {
-  const { file, priceInCents, onPaymentSuccess } = props;
+
+  const {
+    file,
+    priceInCents,
+    onPaymentSuccess
+  } = props;
 
   return (
     <PaymentFormStyles>

@@ -107,13 +107,17 @@ export default function TranscribeForm(props: Props) {
       />
 
       {isLoading && (
-        <FontAwesomeIcon
-          className="spinner"
-          icon={faSpinner}
-          size='2xl'
-          spin
-          style={{ marginTop: "1rem" }}
-        />
+        <>
+          <span>Payment Success. Please wait...</span>
+          <FontAwesomeIcon
+            className="spinner"
+            icon={faSpinner}
+            size='2xl'
+            spin
+            style={{ marginTop: "1rem" }}
+          />
+
+        </>
       )}
     </TranscribeFormStyles>
   );
