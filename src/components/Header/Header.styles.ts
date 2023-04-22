@@ -9,5 +9,13 @@ export const HeaderStyles = styled.header`
   gap: 0.5rem;
   h1 {
     font-size: xxx-large;
+    font-weight: 1000;
+  }
+  span {
+    font-size: xx-large;
+  }
+  p {
+    font-size: x-large;
+    font-weight: 800;
   }
 `

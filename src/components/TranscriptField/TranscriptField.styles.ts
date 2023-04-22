@@ -7,11 +7,13 @@ export const TranscriptFieldStyles = styled.div`
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  padding: 1rem;
+  padding: 0.5rem;
   border: 1px solid black;
   width: 30%;
   #transcriptField {
-    border: 1px solid black;
+    border: 1px dashed black;
     white-space: pre-wrap;
+    max-height: 50vh;
+    overflow-y: scroll;
   }
 `
