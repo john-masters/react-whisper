@@ -6,9 +6,14 @@ interface Props {
 
 export const FormatInputStyles = styled.div`
   display: flex;
+  align-items: center;
   gap: 0.5rem;
   select {
     font-size: medium;
+  }
+  #format {
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
   }
 
   ${({ isDarkMode }: Props) => isDarkMode ? `
