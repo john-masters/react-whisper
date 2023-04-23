@@ -20,7 +20,9 @@ export default function FileInput(props: Props) {
   const handleChange = (e: any) => {
     e.preventDefault();
     const file = e.target.files[0];
-    if (!file) return;
+    const fileSizeInMegabytes = file.size / 1000000;
+
+    if (!file || fileSizeInMegabytes > 25) return;
     setFile(file);
     const audioObj = new Audio(URL.createObjectURL(file));
 
