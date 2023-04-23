@@ -12,6 +12,7 @@ interface Props {
   file: File | null;
   priceInCents: number;
   onPaymentSuccess(succeeded: boolean): void;
+  isDarkMode: boolean;
 }
 
 export default function PaymentForm(props: Props) {
@@ -19,7 +20,8 @@ export default function PaymentForm(props: Props) {
   const {
     file,
     priceInCents,
-    onPaymentSuccess
+    onPaymentSuccess,
+    isDarkMode
   } = props;
 
   return (
@@ -29,6 +31,7 @@ export default function PaymentForm(props: Props) {
           file={file}
           priceInCents={priceInCents}
           onPaymentSuccess={onPaymentSuccess}
+          isDarkMode={isDarkMode}
         />
       </Elements>
     </PaymentFormStyles>

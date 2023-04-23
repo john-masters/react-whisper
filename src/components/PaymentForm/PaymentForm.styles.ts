@@ -5,6 +5,4 @@ export const PaymentFormStyles = styled.div`
   justify-content: center;
   align-content: center;
   width: 100%;
-  border-radius: 8px;
-  border: 1px solid #000;
 `

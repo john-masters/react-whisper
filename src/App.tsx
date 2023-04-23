@@ -40,7 +40,11 @@ export default function App() {
           paymentSucceeded={paymentSucceeded}
         />
       ) : (
-        <TranscriptField transcript={transcript} link={link} format={format} />
+        <TranscriptField
+          transcript={transcript}
+          link={link}
+          format={format}
+        />
       )}
 
       {file && !paymentSucceeded && (
@@ -48,6 +52,7 @@ export default function App() {
           file={file}
           priceInCents={priceInCents}
           onPaymentSuccess={handlePaymentSuccess}
+          isDarkMode={isDarkMode}
         />
       )}
     </AppStyles>

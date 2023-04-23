@@ -7,6 +7,7 @@ interface Props {
   file: File | null;
   priceInCents: number;
   onPaymentSuccess(succeeded: boolean): void;
+  isDarkMode: boolean;
 }
 
 export default function CheckoutForm(props: Props) {
@@ -18,7 +19,12 @@ export default function CheckoutForm(props: Props) {
   const stripe = useStripe();
   const elements = useElements();
 
-  const { file, priceInCents, onPaymentSuccess } = props;
+  const {
+    file,
+    priceInCents,
+    onPaymentSuccess,
+    isDarkMode
+  } = props;
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
@@ -49,16 +55,17 @@ export default function CheckoutForm(props: Props) {
   const cardStyle = {
     style: {
       base: {
-        color: "#32325d",
-        fontFamily: "Arial, sans-serif",
+        color: "#000",
+        fontFamily: "Nunito, sans-serif",
+        // font-family: 'Nunito', sans-serif;
         fontSmoothing: "antialiased",
         fontSize: "16px",
         "::placeholder": {
-          color: "#32325d",
+          color: "#000",
         },
       },
       invalid: {
-        fontFamily: "Arial, sans-serif",
+        fontFamily: "Nunito, sans-serif",
         color: "#fa755a",
         iconColor: "#fa755a",
       },
@@ -96,7 +103,12 @@ export default function CheckoutForm(props: Props) {
   };
 
   return (
-    <CheckoutFormStyles id="payment-form" onSubmit={handleSubmit}>
+    <CheckoutFormStyles
+      id="payment-form"
+      onSubmit={handleSubmit}
+      error={error}
+      isDarkMode={isDarkMode}
+    >
 
       <CardElement
         id="card-element"
@@ -107,7 +119,7 @@ export default function CheckoutForm(props: Props) {
       <button disabled={processing || disabled || succeeded} id="submit">
         <span id="button-text">
           {processing ? (
-            <div className="spinner" id="spinner"></div>
+            'Processing...'
           ) : (
             `Pay $${(priceInCents * 0.01).toFixed(2)} to transcribe now`
           )}
@@ -120,16 +132,6 @@ export default function CheckoutForm(props: Props) {
           {error}
         </div>
       )}
-
-      {/* Show a success message upon completion */}
-      <p className={succeeded ? "result-message" : "result-message hidden"}>
-        Payment succeeded, see the result in your
-        <a href={`https://dashboard.stripe.com/test/payments`}>
-          {" "}
-          Stripe dashboard.
-        </a>{" "}
-        Refresh the page to pay again.
-      </p>
 
     </CheckoutFormStyles>
   );
