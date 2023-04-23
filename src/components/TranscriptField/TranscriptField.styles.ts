@@ -22,6 +22,7 @@ export const TranscriptFieldStyles = styled.div`
   }
 
   #transcriptField {
+    padding: 0.5rem;
     border-radius: 8px;
     white-space: pre-wrap;
     max-height: 50vh;

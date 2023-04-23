@@ -54,7 +54,6 @@ export default function TranscribeForm(props: Props) {
     data.append("format", format);
 
     try {
-      // change to prod server
       const res = await fetch("http://localhost:8080/transcribe/", {
         method: "POST",
         body: data,
