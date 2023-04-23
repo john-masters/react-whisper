@@ -13,6 +13,7 @@ export const HeaderStyles = styled.header`
   text-align: center;
   gap: 0.5rem;
   h1 {
+    line-height: 100%;
     font-size: xxx-large;
     font-weight: 1000;
   }
