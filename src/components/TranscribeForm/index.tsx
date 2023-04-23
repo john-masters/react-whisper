@@ -55,10 +55,13 @@ export default function TranscribeForm(props: Props) {
 
     try {
       // change to prod server
-      const res = await fetch("http://localhost:8080/transcribe/", {
-        method: "POST",
-        body: data,
-      });
+      const res = await fetch(
+        "https://express-whisper-production.up.railway.app/transcribe/",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
 
       if (!res.ok) {
         throw new Error(
@@ -95,15 +98,9 @@ export default function TranscribeForm(props: Props) {
   };
 
   return (
-    <TranscribeFormStyles
-      ref={formRef}
-      onSubmit={handleSubmit}
-      width={width}
-    >
-
+    <TranscribeFormStyles ref={formRef} onSubmit={handleSubmit} width={width}>
       {!isLoading ? (
         <>
-
           <FileInput
             file={file}
             setFile={setFile}
@@ -111,26 +108,20 @@ export default function TranscribeForm(props: Props) {
             isDarkMode={isDarkMode}
           />
 
-          <FormatInput
-            isDarkMode={isDarkMode}
-          />
-
+          <FormatInput isDarkMode={isDarkMode} />
         </>
       ) : (
         <>
-
           <span>Payment Success. Please wait...</span>
           <FontAwesomeIcon
             className="spinner"
             icon={faSpinner}
-            size='2xl'
+            size="2xl"
             spin
             style={{ marginTop: "1rem" }}
           />
-
         </>
       )}
-
     </TranscribeFormStyles>
   );
 }

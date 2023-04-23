@@ -19,12 +19,7 @@ export default function CheckoutForm(props: Props) {
   const stripe = useStripe();
   const elements = useElements();
 
-  const {
-    file,
-    priceInCents,
-    onPaymentSuccess,
-    isDarkMode
-  } = props;
+  const { file, priceInCents, onPaymentSuccess, isDarkMode } = props;
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
@@ -34,14 +29,17 @@ export default function CheckoutForm(props: Props) {
         if (!file) return;
         formData.append("file", file);
 
-        const res = await fetch("http://localhost:8080/create-payment-intent", {
-          method: "POST",
-          // headers: {
-          //   'Content-Type': 'application/json'
-          // },
-          body: formData,
-          // body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] })
-        });
+        const res = await fetch(
+          "https://express-whisper-production.up.railway.app/create-payment-intent",
+          {
+            method: "POST",
+            // headers: {
+            //   'Content-Type': 'application/json'
+            // },
+            body: formData,
+            // body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] })
+          }
+        );
         const data = await res.json();
         setClientSecret(data.clientSecret);
       } catch (err) {
@@ -109,7 +107,6 @@ export default function CheckoutForm(props: Props) {
       error={error}
       isDarkMode={isDarkMode}
     >
-
       <CardElement
         id="card-element"
         options={cardStyle}
@@ -118,11 +115,9 @@ export default function CheckoutForm(props: Props) {
 
       <button disabled={processing || disabled || succeeded} id="submit">
         <span id="button-text">
-          {processing ? (
-            'Processing...'
-          ) : (
-            `Pay $${(priceInCents * 0.01).toFixed(2)} to transcribe now`
-          )}
+          {processing
+            ? "Processing..."
+            : `Pay $${(priceInCents * 0.01).toFixed(2)} to transcribe now`}
         </span>
       </button>
 
@@ -132,7 +127,6 @@ export default function CheckoutForm(props: Props) {
           {error}
         </div>
       )}
-
     </CheckoutFormStyles>
   );
 }
