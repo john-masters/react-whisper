@@ -5,6 +5,7 @@ import TranscriptField from "./components/TranscriptField";
 import { AppStyles } from "./App.styles";
 import PaymentForm from "./components/PaymentForm";
 import LightDarkMode from "./components/LightDarkMode";
+import { useWindowWidth } from './hooks/useWindowWidth';
 
 export default function App() {
   const [transcript, setTranscipt] = useState<string>("");
@@ -14,6 +15,8 @@ export default function App() {
   const [file, setFile] = useState<File | null>(null);
   const [paymentSucceeded, setPaymentSucceeded] = useState<boolean>(false);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+
+  const width = useWindowWidth();
 
   const handlePaymentSuccess = (succeeded: boolean) => {
     setPaymentSucceeded(succeeded);
@@ -29,21 +32,22 @@ export default function App() {
 
       {!transcript ? (
         <TranscribeForm
-          isDarkMode={isDarkMode}
-          setTranscript={setTranscipt}
-          setLink={setLink}
-          setFormat={setFormat}
-          priceInCents={priceInCents}
-          setPriceInCents={setPriceInCents}
-          file={file}
-          setFile={setFile}
-          paymentSucceeded={paymentSucceeded}
+        setTranscript={setTranscipt}
+        setLink={setLink}
+        setFormat={setFormat}
+        priceInCents={priceInCents}
+        setPriceInCents={setPriceInCents}
+        file={file}
+        setFile={setFile}
+        paymentSucceeded={paymentSucceeded}
+        isDarkMode={isDarkMode}
         />
       ) : (
         <TranscriptField
           transcript={transcript}
           link={link}
           format={format}
+          isDarkMode={isDarkMode}
         />
       )}
 

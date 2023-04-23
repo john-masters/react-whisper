@@ -7,7 +7,7 @@ interface Props {
 
 export const CheckoutFormStyles = styled.form`
   border-radius: 8px;
-  width: 70%;
+  width: 100%;
   display: flex;
   flex-direction: column;
 

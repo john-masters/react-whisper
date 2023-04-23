@@ -5,13 +5,15 @@ interface Props {
   transcript: string;
   link: HTMLAnchorElement | null;
   format: string;
+  isDarkMode: boolean;
 }
 
 export default function TranscriptField(props: Props) {
   const {
     transcript,
     link,
-    format
+    format,
+    isDarkMode,
   } = props
 
   const fileFormat = () => {
@@ -26,18 +28,18 @@ export default function TranscriptField(props: Props) {
   }
 
   return (
-    <TranscriptFieldStyles >
+    <TranscriptFieldStyles isDarkMode={isDarkMode}>
       { link && (
         <>
           <div id='transcriptField'>
             {transcript}
           </div>
-          <button
+          <div
             id='downloadButton'
             onClick={() => link.click()}
           >
             Download {fileFormat()} File
-          </button>
+          </div>
         </>
       )}
     </TranscriptFieldStyles>
