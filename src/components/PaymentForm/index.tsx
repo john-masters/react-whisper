@@ -13,6 +13,7 @@ interface Props {
   priceInCents: number;
   onPaymentSuccess(succeeded: boolean): void;
   isDarkMode: boolean;
+  width: number;
 }
 
 export default function PaymentForm(props: Props) {
@@ -21,11 +22,12 @@ export default function PaymentForm(props: Props) {
     file,
     priceInCents,
     onPaymentSuccess,
-    isDarkMode
+    isDarkMode,
+    width,
   } = props;
 
   return (
-    <PaymentFormStyles>
+    <PaymentFormStyles width={width}>
       <Elements stripe={promise}>
         <CheckoutForm
           file={file}

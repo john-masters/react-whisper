@@ -16,6 +16,7 @@ interface Props {
   setFile(file: File | null): void;
   paymentSucceeded: boolean;
   isDarkMode: boolean;
+  width: number;
 }
 
 export default function TranscribeForm(props: Props) {
@@ -32,6 +33,7 @@ export default function TranscribeForm(props: Props) {
     setFile,
     paymentSucceeded,
     isDarkMode,
+    width,
   } = props;
 
   useEffect(() => {
@@ -93,7 +95,11 @@ export default function TranscribeForm(props: Props) {
   };
 
   return (
-    <TranscribeFormStyles ref={formRef} onSubmit={handleSubmit}>
+    <TranscribeFormStyles
+      ref={formRef}
+      onSubmit={handleSubmit}
+      width={width}
+    >
 
       {!isLoading ? (
         <>

@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 interface Props {
   isDarkMode: boolean;
+  width: number;
 }
 
 export const TranscriptFieldStyles = styled.div`
@@ -13,7 +14,6 @@ export const TranscriptFieldStyles = styled.div`
   gap: 0.5rem;
   padding: 0.5rem;
   border-radius: 8px;
-  width: 50%;
 
   #downloadButton {
     cursor: pointer;
@@ -45,6 +45,12 @@ export const TranscriptFieldStyles = styled.div`
     #transcriptField {
       border: 1px dashed #000;
     }
+  `}
+
+  ${({ width }: Props) => width > 600 ? `
+    width: 50%;
+  ` : `
+    width: 100%;
   `}
 
 `

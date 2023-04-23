@@ -6,6 +6,7 @@ interface Props {
   link: HTMLAnchorElement | null;
   format: string;
   isDarkMode: boolean;
+  width: number;
 }
 
 export default function TranscriptField(props: Props) {
@@ -14,6 +15,7 @@ export default function TranscriptField(props: Props) {
     link,
     format,
     isDarkMode,
+    width
   } = props
 
   const fileFormat = () => {
@@ -28,7 +30,10 @@ export default function TranscriptField(props: Props) {
   }
 
   return (
-    <TranscriptFieldStyles isDarkMode={isDarkMode}>
+    <TranscriptFieldStyles
+      isDarkMode={isDarkMode}
+      width={width}
+    >
       { link && (
         <>
           <div id='transcriptField'>

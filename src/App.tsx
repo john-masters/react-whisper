@@ -28,19 +28,22 @@ export default function App() {
         isDarkMode={isDarkMode}
         setIsDarkMode={setIsDarkMode}
       />
-      <Header />
+      <Header
+        width={width}
+      />
 
       {!transcript ? (
         <TranscribeForm
-        setTranscript={setTranscipt}
-        setLink={setLink}
-        setFormat={setFormat}
-        priceInCents={priceInCents}
-        setPriceInCents={setPriceInCents}
-        file={file}
-        setFile={setFile}
-        paymentSucceeded={paymentSucceeded}
-        isDarkMode={isDarkMode}
+          setTranscript={setTranscipt}
+          setLink={setLink}
+          setFormat={setFormat}
+          priceInCents={priceInCents}
+          setPriceInCents={setPriceInCents}
+          file={file}
+          setFile={setFile}
+          paymentSucceeded={paymentSucceeded}
+          isDarkMode={isDarkMode}
+          width={width}
         />
       ) : (
         <TranscriptField
@@ -48,6 +51,7 @@ export default function App() {
           link={link}
           format={format}
           isDarkMode={isDarkMode}
+          width={width}
         />
       )}
 
@@ -57,6 +61,7 @@ export default function App() {
           priceInCents={priceInCents}
           onPaymentSuccess={handlePaymentSuccess}
           isDarkMode={isDarkMode}
+          width={width}
         />
       )}
     </AppStyles>
