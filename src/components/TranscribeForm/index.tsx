@@ -95,19 +95,24 @@ export default function TranscribeForm(props: Props) {
   return (
     <TranscribeFormStyles ref={formRef} onSubmit={handleSubmit}>
 
-      <FileInput
-        file={file}
-        setFile={setFile}
-        setPriceInCents={setPriceInCents}
-        isDarkMode={isDarkMode}
-      />
-
-      <FormatInput
-        isDarkMode={isDarkMode}
-      />
-
-      {isLoading && (
+      {!isLoading ? (
         <>
+
+          <FileInput
+            file={file}
+            setFile={setFile}
+            setPriceInCents={setPriceInCents}
+            isDarkMode={isDarkMode}
+          />
+
+          <FormatInput
+            isDarkMode={isDarkMode}
+          />
+
+        </>
+      ) : (
+        <>
+
           <span>Payment Success. Please wait...</span>
           <FontAwesomeIcon
             className="spinner"
@@ -119,6 +124,7 @@ export default function TranscribeForm(props: Props) {
 
         </>
       )}
+
     </TranscribeFormStyles>
   );
 }

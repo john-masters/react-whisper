@@ -18,6 +18,13 @@ export const FileInputStyles = styled.div`
     display: none;
   }
 
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 20ch;
+  }
+
   ${({ isDarkMode }: Props) => isDarkMode ? `
     border: 1px solid white;
     border-radius: 8px;
