@@ -6,12 +6,12 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 interface Props {
   file: File | null;
   priceInCents: number;
-  onPaymentSuccess(succeeded: boolean): void;
+  succeeded: boolean;
+  setSucceeded(succeeded: boolean): void;
   isDarkMode: boolean;
 }
 
 export default function CheckoutForm(props: Props) {
-  const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [processing, setProcessing] = useState<boolean | null>(null);
   const [disabled, setDisabled] = useState(true);
@@ -22,12 +22,12 @@ export default function CheckoutForm(props: Props) {
   const {
     file,
     priceInCents,
-    onPaymentSuccess,
+    succeeded,
+    setSucceeded,
     isDarkMode
   } = props;
 
   useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
     const createPaymentIntent = async () => {
       try {
         const formData = new FormData();
@@ -36,11 +36,7 @@ export default function CheckoutForm(props: Props) {
 
         const res = await fetch("http://localhost:8080/create-payment-intent", {
           method: "POST",
-          // headers: {
-          //   'Content-Type': 'application/json'
-          // },
           body: formData,
-          // body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] })
         });
         const data = await res.json();
         setClientSecret(data.clientSecret);
@@ -57,7 +53,6 @@ export default function CheckoutForm(props: Props) {
       base: {
         color: "#000",
         fontFamily: "Nunito, sans-serif",
-        // font-family: 'Nunito', sans-serif;
         fontSmoothing: "antialiased",
         fontSize: "16px",
         "::placeholder": {
@@ -98,7 +93,6 @@ export default function CheckoutForm(props: Props) {
       setError(null);
       setProcessing(false);
       setSucceeded(true);
-      onPaymentSuccess(true);
     }
   };
 

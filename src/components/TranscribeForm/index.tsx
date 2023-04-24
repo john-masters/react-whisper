@@ -14,7 +14,7 @@ interface Props {
   setPriceInCents(priceInCents: number): void;
   file: File | null;
   setFile(file: File | null): void;
-  paymentSucceeded: boolean;
+  succeeded: boolean;
   isDarkMode: boolean;
   width: number;
 }
@@ -31,16 +31,16 @@ export default function TranscribeForm(props: Props) {
     setPriceInCents,
     file,
     setFile,
-    paymentSucceeded,
+    succeeded,
     isDarkMode,
     width,
   } = props;
 
   useEffect(() => {
-    if (paymentSucceeded && formRef.current) {
+    if (succeeded && formRef.current) {
       formRef.current?.requestSubmit();
     }
-  }, [paymentSucceeded]);
+  }, [succeeded]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();

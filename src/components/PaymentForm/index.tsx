@@ -12,7 +12,8 @@ const promise = loadStripe(
 interface Props {
   file: File | null;
   priceInCents: number;
-  onPaymentSuccess(succeeded: boolean): void;
+  succeeded: boolean;
+  setSucceeded(succeeded: boolean): void;
   isDarkMode: boolean;
   width: number;
 }
@@ -22,7 +23,8 @@ export default function PaymentForm(props: Props) {
   const {
     file,
     priceInCents,
-    onPaymentSuccess,
+    succeeded,
+    setSucceeded,
     isDarkMode,
     width,
   } = props;
@@ -33,7 +35,8 @@ export default function PaymentForm(props: Props) {
         <CheckoutForm
           file={file}
           priceInCents={priceInCents}
-          onPaymentSuccess={onPaymentSuccess}
+          succeeded={succeeded}
+          setSucceeded={setSucceeded}
           isDarkMode={isDarkMode}
         />
       </Elements>

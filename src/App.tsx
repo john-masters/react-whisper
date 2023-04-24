@@ -13,14 +13,10 @@ export default function App() {
   const [format, setFormat] = useState<string>("text");
   const [priceInCents, setPriceInCents] = useState<number>(0);
   const [file, setFile] = useState<File | null>(null);
-  const [paymentSucceeded, setPaymentSucceeded] = useState<boolean>(false);
+  const [succeeded, setSucceeded] = useState<boolean>(false);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   const width = useWindowWidth();
-
-  const handlePaymentSuccess = (succeeded: boolean) => {
-    setPaymentSucceeded(succeeded);
-  };
 
   return (
     <AppStyles isDarkMode={isDarkMode}>
@@ -41,7 +37,7 @@ export default function App() {
           setPriceInCents={setPriceInCents}
           file={file}
           setFile={setFile}
-          paymentSucceeded={paymentSucceeded}
+          succeeded={succeeded}
           isDarkMode={isDarkMode}
           width={width}
         />
@@ -55,11 +51,12 @@ export default function App() {
         />
       )}
 
-      {file && !paymentSucceeded && (
+      {file && !succeeded && (
         <PaymentForm
           file={file}
           priceInCents={priceInCents}
-          onPaymentSuccess={handlePaymentSuccess}
+          succeeded={succeeded}
+          setSucceeded={setSucceeded}
           isDarkMode={isDarkMode}
           width={width}
         />
