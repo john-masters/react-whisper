@@ -2,26 +2,19 @@ import React, { useState, useEffect, useRef } from "react";
 import { TranscribeFormStyles } from "./TranscribeForm.styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import PaymentForm from "../PaymentForm";
 import FileInput from "../FileInput";
 import FormatInput from "../FormatInput";
+import { useAppContext } from '../../AppContext';
 
 interface Props {
-  setTranscript(transcript: string): void;
-  setLink(link: HTMLAnchorElement | null): void;
-  setFormat(format: string): void;
-  priceInCents: number;
-  setPriceInCents(priceInCents: number): void;
-  file: File | null;
-  setFile(file: File | null): void;
-  succeeded: boolean;
-  isDarkMode: boolean;
   width: number;
 }
 
 export default function TranscribeForm(props: Props) {
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const formRef = useRef<HTMLFormElement>(null); // Add this line to create a form ref
+
+  const { width } = props;
 
   const {
     setTranscript,
@@ -33,8 +26,9 @@ export default function TranscribeForm(props: Props) {
     setFile,
     succeeded,
     isDarkMode,
-    width,
-  } = props;
+    error,
+    setError,
+  } = useAppContext();
 
   useEffect(() => {
     if (succeeded && formRef.current) {
@@ -108,11 +102,15 @@ export default function TranscribeForm(props: Props) {
             setFile={setFile}
             setPriceInCents={setPriceInCents}
             isDarkMode={isDarkMode}
+            error={error}
+            setError={setError}
           />
 
           <FormatInput
             isDarkMode={isDarkMode}
           />
+
+          {error && <span>{error}</span>}
 
         </>
       ) : (
