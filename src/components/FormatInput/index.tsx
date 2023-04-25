@@ -1,13 +1,10 @@
 import React from 'react'
 import { FormatInputStyles } from './FormatInput.styles'
+import { useAppContext } from '../../AppContext';
 
+export default function FormatInput() {
 
-interface Props {
-  isDarkMode: boolean;
-}
-
-export default function FormatInput(props: Props) {
-  const { isDarkMode } = props
+  const { isDarkMode } = useAppContext();
 
   return (
     <FormatInputStyles isDarkMode={isDarkMode}>

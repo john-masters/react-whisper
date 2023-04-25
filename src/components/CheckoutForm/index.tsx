@@ -1,45 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { CheckoutFormStyles } from "./CheckoutForm.styles";
 import type { StripeCardElement } from "@stripe/stripe-js";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { useAppContext } from "../../AppContext";
 
-interface Props {
-  file: File | null;
-  priceInCents: number;
-  onPaymentSuccess(succeeded: boolean): void;
-  isDarkMode: boolean;
-}
-
-export default function CheckoutForm(props: Props) {
-  const [succeeded, setSucceeded] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [processing, setProcessing] = useState<boolean | null>(null);
-  const [disabled, setDisabled] = useState(true);
-  const [clientSecret, setClientSecret] = useState("");
+export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
 
-  const { file, priceInCents, onPaymentSuccess, isDarkMode } = props;
+  const {
+    file,
+    priceInCents,
+    succeeded,
+    setSucceeded,
+    isDarkMode,
+    paymentError,
+    setPaymentError,
+    processing,
+    setProcessing,
+    disabled,
+    setDisabled,
+    clientSecret,
+    setClientSecret,
+  } = useAppContext();
 
   useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
     const createPaymentIntent = async () => {
       try {
         const formData = new FormData();
         if (!file) return;
         formData.append("file", file);
 
-        const res = await fetch(
-          "https://express-whisper-production.up.railway.app/create-payment-intent",
-          {
-            method: "POST",
-            // headers: {
-            //   'Content-Type': 'application/json'
-            // },
-            body: formData,
-            // body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] })
-          }
-        );
+        const res = await fetch("http://localhost:8080/create-payment-intent", {
+          method: "POST",
+          body: formData,
+        });
         const data = await res.json();
         setClientSecret(data.clientSecret);
       } catch (err) {
@@ -55,7 +50,6 @@ export default function CheckoutForm(props: Props) {
       base: {
         color: "#000",
         fontFamily: "Nunito, sans-serif",
-        // font-family: 'Nunito', sans-serif;
         fontSmoothing: "antialiased",
         fontSize: "16px",
         "::placeholder": {
@@ -74,7 +68,7 @@ export default function CheckoutForm(props: Props) {
     // Listen for changes in the CardElement
     // and display any errors as the customer types their card details
     setDisabled(e.empty);
-    setError(e.error ? e.error.message : "");
+    setPaymentError(e.error ? e.error.message : "");
   };
 
   const handleSubmit = async (e: any) => {
@@ -90,13 +84,12 @@ export default function CheckoutForm(props: Props) {
     });
 
     if (payload.error) {
-      setError(`Payment failed ${payload.error.message}`);
+      setPaymentError(`Payment failed ${payload.error.message}`);
       setProcessing(false);
     } else {
-      setError(null);
+      setPaymentError(null);
       setProcessing(false);
       setSucceeded(true);
-      onPaymentSuccess(true);
     }
   };
 
@@ -104,7 +97,7 @@ export default function CheckoutForm(props: Props) {
     <CheckoutFormStyles
       id="payment-form"
       onSubmit={handleSubmit}
-      error={error}
+      paymentError={paymentError}
       isDarkMode={isDarkMode}
     >
       <CardElement
@@ -122,9 +115,9 @@ export default function CheckoutForm(props: Props) {
       </button>
 
       {/* Show any error that happens when processing the payment */}
-      {error && (
+      {paymentError && (
         <div className="card-error" role="alert">
-          {error}
+          {paymentError}
         </div>
       )}
     </CheckoutFormStyles>

@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 interface Props {
   isDarkMode: boolean;
-  error: string | null;
+  paymentError: string | null;
 }
 
 export const CheckoutFormStyles = styled.form`
@@ -77,7 +77,7 @@ export const CheckoutFormStyles = styled.form`
       border-top: 1px solid #000;
     }
   `}
-  ${({ error }: Props) => error ? `
+  ${({ paymentError }: Props) => paymentError ? `
     button {
     }
   ` : `

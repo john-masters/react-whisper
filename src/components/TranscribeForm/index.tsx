@@ -1,46 +1,31 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { TranscribeFormStyles } from "./TranscribeForm.styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import PaymentForm from "../PaymentForm";
 import FileInput from "../FileInput";
 import FormatInput from "../FormatInput";
+import { useAppContext } from '../../AppContext';
+import { useWindowWidth } from '../../hooks/useWindowWidth';
 
-interface Props {
-  setTranscript(transcript: string): void;
-  setLink(link: HTMLAnchorElement | null): void;
-  setFormat(format: string): void;
-  priceInCents: number;
-  setPriceInCents(priceInCents: number): void;
-  file: File | null;
-  setFile(file: File | null): void;
-  paymentSucceeded: boolean;
-  isDarkMode: boolean;
-  width: number;
-}
-
-export default function TranscribeForm(props: Props) {
-  const [isLoading, setIsLoading] = useState<Boolean>(false);
-  const formRef = useRef<HTMLFormElement>(null); // Add this line to create a form ref
+export default function TranscribeForm() {
+  const formRef = useRef<HTMLFormElement>(null);
+  const width = useWindowWidth();
 
   const {
     setTranscript,
     setLink,
     setFormat,
-    priceInCents,
-    setPriceInCents,
-    file,
-    setFile,
-    paymentSucceeded,
-    isDarkMode,
-    width,
-  } = props;
+    succeeded,
+    error,
+    isLoading,
+    setIsLoading,
+  } = useAppContext();
 
   useEffect(() => {
-    if (paymentSucceeded && formRef.current) {
+    if (succeeded && formRef.current) {
       formRef.current?.requestSubmit();
     }
-  }, [paymentSucceeded]);
+  }, [succeeded]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -98,28 +83,18 @@ export default function TranscribeForm(props: Props) {
   };
 
   return (
-    <TranscribeFormStyles ref={formRef} onSubmit={handleSubmit} width={width}>
+    <TranscribeFormStyles ref={formRef} onSubmit={handleSubmit} width={width} >
+
       {!isLoading ? (
         <>
-          <FileInput
-            file={file}
-            setFile={setFile}
-            setPriceInCents={setPriceInCents}
-            isDarkMode={isDarkMode}
-          />
-
-          <FormatInput isDarkMode={isDarkMode} />
+          <FileInput />
+          <FormatInput />
+          {error && <span>{error}</span>}
         </>
       ) : (
         <>
           <span>Payment Success. Please wait...</span>
-          <FontAwesomeIcon
-            className="spinner"
-            icon={faSpinner}
-            size="2xl"
-            spin
-            style={{ marginTop: "1rem" }}
-          />
+          <FontAwesomeIcon icon={faSpinner} size='2xl' spin />
         </>
       )}
     </TranscribeFormStyles>

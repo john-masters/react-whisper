@@ -1,29 +1,45 @@
 import React from 'react'
 import { FileInputStyles } from './FileInput.styles'
+import { useAppContext } from '../../AppContext';
 
-interface Props {
-  setPriceInCents(priceInCents: number): void;
-  file: File | null;
-  setFile(file: File | null): void;
-  isDarkMode: boolean;
-}
-
-export default function FileInput(props: Props) {
+export default function FileInput() {
 
   const {
     setPriceInCents,
     file,
     setFile,
     isDarkMode,
-  } = props;
+    setError,
+  } = useAppContext();
+
+  const allowedFileTypes = [
+    'audio/mp3',
+    'audio/mp4',
+    'audio/mpeg',
+    'audio/mpga',
+    'audio/x-m4a',
+    'audio/wav',
+    'audio/webm',
+  ];
 
   const handleChange = (e: any) => {
+    setError("")
     e.preventDefault();
     const file = e.target.files[0];
     const fileSizeInMegabytes = file.size / 1000000;
 
-    if (!file || fileSizeInMegabytes > 25) return;
+    if (!file || fileSizeInMegabytes > 25) {
+      setError("File size must be less than 25MB");
+      return;
+    }
+
+    if (!allowedFileTypes.includes(file.type)) {
+      setError("File type must be mp3, mp4, mpeg, mpga, m4a, wav, or webm");
+      return;
+    }
+
     setFile(file);
+
     const audioObj = new Audio(URL.createObjectURL(file));
 
     audioObj.addEventListener("loadedmetadata", () => {
