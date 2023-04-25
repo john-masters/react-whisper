@@ -31,7 +31,7 @@ export default function CheckoutForm() {
         if (!file) return;
         formData.append("file", file);
 
-        const res = await fetch("http://localhost:8080/create-payment-intent", {
+        const res = await fetch("https://express-whisper-production.up.railway.app/create-payment-intent", {
           method: "POST",
           body: formData,
         });
