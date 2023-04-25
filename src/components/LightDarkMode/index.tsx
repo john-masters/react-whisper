@@ -8,7 +8,9 @@ export default function LightDarkMode() {
   const { isDarkMode, setIsDarkMode } = useAppContext();
 
   const handleClick = () => {
-    setIsDarkMode(!isDarkMode)
+    const newIsDarkMode = !isDarkMode;
+    setIsDarkMode(newIsDarkMode);
+    localStorage.setItem('isDarkMode', JSON.stringify(newIsDarkMode));
   }
 
   return (

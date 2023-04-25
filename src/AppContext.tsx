@@ -50,13 +50,16 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
   const [priceInCents, setPriceInCents] = useState<number>(0);
   const [file, setFile] = useState<File | null>(null);
   const [succeeded, setSucceeded] = useState<boolean>(false);
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [paymentError, setPaymentError] = useState<string | null>(null);
   const [processing, setProcessing] = useState<boolean | null>(null);
   const [disabled, setDisabled] = useState<boolean>(true);
   const [clientSecret, setClientSecret] = useState<string>("");
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    const storedValue = localStorage.getItem('isDarkMode');
+    return storedValue ? JSON.parse(storedValue) : false;
+  });
 
   return (
     <AppContext.Provider
