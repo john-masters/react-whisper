@@ -1,25 +1,16 @@
 import React from 'react'
 import { FileInputStyles } from './FileInput.styles'
+import { useAppContext } from '../../AppContext';
 
-interface Props {
-  setPriceInCents(priceInCents: number): void;
-  file: File | null;
-  setFile(file: File | null): void;
-  isDarkMode: boolean;
-  error: string;
-  setError(error: string): void;
-}
-
-export default function FileInput(props: Props) {
+export default function FileInput() {
 
   const {
     setPriceInCents,
     file,
     setFile,
     isDarkMode,
-    error,
     setError,
-  } = props;
+  } = useAppContext();
 
   const allowedFileTypes = [
     'audio/mp3',

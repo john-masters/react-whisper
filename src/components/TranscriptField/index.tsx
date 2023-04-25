@@ -1,22 +1,13 @@
 import React from 'react'
 import { TranscriptFieldStyles } from './TranscriptField.styles'
+import { useAppContext } from '../../AppContext';
+import { useWindowWidth } from '../../hooks/useWindowWidth';
 
-interface Props {
-  transcript: string;
-  link: HTMLAnchorElement | null;
-  format: string;
-  isDarkMode: boolean;
-  width: number;
-}
+export default function TranscriptField() {
 
-export default function TranscriptField(props: Props) {
-  const {
-    transcript,
-    link,
-    format,
-    isDarkMode,
-    width
-  } = props
+  const { isDarkMode, format, link, transcript } = useAppContext();
+
+  const width = useWindowWidth();
 
   const fileFormat = () => {
     switch (format) {
@@ -30,10 +21,7 @@ export default function TranscriptField(props: Props) {
   }
 
   return (
-    <TranscriptFieldStyles
-      isDarkMode={isDarkMode}
-      width={width}
-    >
+    <TranscriptFieldStyles isDarkMode={isDarkMode} width={width}>
       { link && (
         <>
           <div id='transcriptField'>

@@ -1,13 +1,9 @@
 import React from 'react'
 import { HeaderStyles } from './Header.styles'
+import { useWindowWidth } from '../../hooks/useWindowWidth';
 
-
-interface Props {
-  width: number;
-}
-
-export default function Header(props: Props) {
-  const { width } = props;
+export default function Header() {
+  const width = useWindowWidth();
 
   return (
     <HeaderStyles width={width}>

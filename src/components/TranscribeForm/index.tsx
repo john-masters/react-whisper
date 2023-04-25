@@ -5,29 +5,19 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import FileInput from "../FileInput";
 import FormatInput from "../FormatInput";
 import { useAppContext } from '../../AppContext';
+import { useWindowWidth } from '../../hooks/useWindowWidth';
 
-interface Props {
-  width: number;
-}
-
-export default function TranscribeForm(props: Props) {
+export default function TranscribeForm() {
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const formRef = useRef<HTMLFormElement>(null); // Add this line to create a form ref
-
-  const { width } = props;
+  const width = useWindowWidth();
 
   const {
     setTranscript,
     setLink,
     setFormat,
-    priceInCents,
-    setPriceInCents,
-    file,
-    setFile,
     succeeded,
-    isDarkMode,
     error,
-    setError,
   } = useAppContext();
 
   useEffect(() => {
@@ -88,43 +78,18 @@ export default function TranscribeForm(props: Props) {
   };
 
   return (
-    <TranscribeFormStyles
-      ref={formRef}
-      onSubmit={handleSubmit}
-      width={width}
-    >
+    <TranscribeFormStyles ref={formRef} onSubmit={handleSubmit} width={width} >
 
       {!isLoading ? (
         <>
-
-          <FileInput
-            file={file}
-            setFile={setFile}
-            setPriceInCents={setPriceInCents}
-            isDarkMode={isDarkMode}
-            error={error}
-            setError={setError}
-          />
-
-          <FormatInput
-            isDarkMode={isDarkMode}
-          />
-
+          <FileInput />
+          <FormatInput />
           {error && <span>{error}</span>}
-
         </>
       ) : (
         <>
-
           <span>Payment Success. Please wait...</span>
-          <FontAwesomeIcon
-            className="spinner"
-            icon={faSpinner}
-            size='2xl'
-            spin
-            style={{ marginTop: "1rem" }}
-          />
-
+          <FontAwesomeIcon icon={faSpinner} size='2xl' spin />
         </>
       )}
 

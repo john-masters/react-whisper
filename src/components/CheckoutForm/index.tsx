@@ -2,16 +2,9 @@ import React, { useState, useEffect } from "react";
 import { CheckoutFormStyles } from "./CheckoutForm.styles";
 import type { StripeCardElement } from "@stripe/stripe-js";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { useAppContext } from "../../AppContext";
 
-interface Props {
-  file: File | null;
-  priceInCents: number;
-  succeeded: boolean;
-  setSucceeded(succeeded: boolean): void;
-  isDarkMode: boolean;
-}
-
-export default function CheckoutForm(props: Props) {
+export default function CheckoutForm() {
   const [error, setError] = useState<string | null>(null);
   const [processing, setProcessing] = useState<boolean | null>(null);
   const [disabled, setDisabled] = useState(true);
@@ -24,8 +17,8 @@ export default function CheckoutForm(props: Props) {
     priceInCents,
     succeeded,
     setSucceeded,
-    isDarkMode
-  } = props;
+    isDarkMode,
+  } = useAppContext();
 
   useEffect(() => {
     const createPaymentIntent = async () => {
