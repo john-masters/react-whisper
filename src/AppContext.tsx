@@ -21,6 +21,16 @@ interface AppContextInterface {
   setIsDarkMode(isDarkMode: boolean): void;
   error: string;
   setError(error: string): void;
+  isLoading: boolean;
+  setIsLoading(isLoading: boolean): void;
+  paymentError: string | null;
+  setPaymentError(paymentError: string | null): void;
+  processing: boolean | null;
+  setProcessing(processing: boolean | null): void;
+  disabled: boolean;
+  setDisabled(disabled: boolean): void;
+  clientSecret: string;
+  setClientSecret(clientSecret: string): void;
 }
 
 const AppContext = createContext<AppContextInterface | undefined>(undefined);
@@ -42,6 +52,11 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
   const [succeeded, setSucceeded] = useState<boolean>(false);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
+  const [processing, setProcessing] = useState<boolean | null>(null);
+  const [disabled, setDisabled] = useState<boolean>(true);
+  const [clientSecret, setClientSecret] = useState<string>("");
 
   return (
     <AppContext.Provider
@@ -62,6 +77,16 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
         setIsDarkMode,
         error,
         setError,
+        isLoading,
+        setIsLoading,
+        paymentError,
+        setPaymentError,
+        processing,
+        setProcessing,
+        disabled,
+        setDisabled,
+        clientSecret,
+        setClientSecret,
       }}
     >
       {children}

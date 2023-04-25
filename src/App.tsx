@@ -7,28 +7,24 @@ import LightDarkMode from "./components/LightDarkMode";
 import { useAppContext } from "./AppContext";
 
 export default function App() {
-  const {
-    transcript,
-    file,
-    succeeded,
-    isDarkMode,
-  } = useAppContext();
+  const { transcript, file, succeeded, isDarkMode } = useAppContext();
 
   return (
-      <AppStyles isDarkMode={isDarkMode}>
-        <LightDarkMode />
+    <AppStyles isDarkMode={isDarkMode}>
 
-        <Header />
+      <LightDarkMode />
+      <Header />
 
-        {!transcript ? (
-          <TranscribeForm />
-        ) : (
-          <TranscriptField />
-        )}
+      {!transcript ? (
+        <TranscribeForm />
+      ) : (
+        <TranscriptField />
+      )}
 
-        {file && !succeeded && (
-          <PaymentForm />
-        )}
-      </AppStyles>
+      {file && !succeeded && (
+        <PaymentForm />
+      )}
+
+    </AppStyles>
   );
 }

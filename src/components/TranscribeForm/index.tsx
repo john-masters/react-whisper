@@ -8,8 +8,7 @@ import { useAppContext } from '../../AppContext';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
 
 export default function TranscribeForm() {
-  const [isLoading, setIsLoading] = useState<Boolean>(false);
-  const formRef = useRef<HTMLFormElement>(null); // Add this line to create a form ref
+  const formRef = useRef<HTMLFormElement>(null);
   const width = useWindowWidth();
 
   const {
@@ -18,6 +17,8 @@ export default function TranscribeForm() {
     setFormat,
     succeeded,
     error,
+    isLoading,
+    setIsLoading,
   } = useAppContext();
 
   useEffect(() => {

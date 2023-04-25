@@ -5,10 +5,6 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useAppContext } from "../../AppContext";
 
 export default function CheckoutForm() {
-  const [error, setError] = useState<string | null>(null);
-  const [processing, setProcessing] = useState<boolean | null>(null);
-  const [disabled, setDisabled] = useState(true);
-  const [clientSecret, setClientSecret] = useState("");
   const stripe = useStripe();
   const elements = useElements();
 
@@ -18,6 +14,14 @@ export default function CheckoutForm() {
     succeeded,
     setSucceeded,
     isDarkMode,
+    paymentError,
+    setPaymentError,
+    processing,
+    setProcessing,
+    disabled,
+    setDisabled,
+    clientSecret,
+    setClientSecret,
   } = useAppContext();
 
   useEffect(() => {
@@ -64,7 +68,7 @@ export default function CheckoutForm() {
     // Listen for changes in the CardElement
     // and display any errors as the customer types their card details
     setDisabled(e.empty);
-    setError(e.error ? e.error.message : "");
+    setPaymentError(e.error ? e.error.message : "");
   };
 
   const handleSubmit = async (e: any) => {
@@ -80,10 +84,10 @@ export default function CheckoutForm() {
     });
 
     if (payload.error) {
-      setError(`Payment failed ${payload.error.message}`);
+      setPaymentError(`Payment failed ${payload.error.message}`);
       setProcessing(false);
     } else {
-      setError(null);
+      setPaymentError(null);
       setProcessing(false);
       setSucceeded(true);
     }
@@ -93,7 +97,7 @@ export default function CheckoutForm() {
     <CheckoutFormStyles
       id="payment-form"
       onSubmit={handleSubmit}
-      error={error}
+      paymentError={paymentError}
       isDarkMode={isDarkMode}
     >
 
@@ -114,9 +118,9 @@ export default function CheckoutForm() {
       </button>
 
       {/* Show any error that happens when processing the payment */}
-      {error && (
+      {paymentError && (
         <div className="card-error" role="alert">
-          {error}
+          {paymentError}
         </div>
       )}
 
