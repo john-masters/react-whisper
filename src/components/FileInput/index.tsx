@@ -26,12 +26,15 @@ export default function FileInput() {
     setError("")
     e.preventDefault();
     const file = e.target.files[0];
-    const fileSizeInMegabytes = file.size / 1000000;
 
-    if (!file || fileSizeInMegabytes > 25) {
-      setError("File size must be less than 25MB");
-      return;
-    }
+    // removed as files are now compressed to 16k mp3
+    // TODO: figure out new limits
+
+    // const fileSizeInMegabytes = file.size / 1000000;
+    // if (!file || fileSizeInMegabytes > 25) {
+    //   setError("File size must be less than 25MB");
+    //   return;
+    // }
 
     if (!allowedFileTypes.includes(file.type)) {
       setError("File type must be mp3, mp4, mpeg, mpga, m4a, wav, or webm");
