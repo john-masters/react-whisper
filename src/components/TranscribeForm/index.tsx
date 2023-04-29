@@ -6,6 +6,7 @@ import FileInput from "../FileInput";
 import FormatInput from "../FormatInput";
 import { useAppContext } from '../../AppContext';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
+import LanguageInput from "../LanguageInput";
 
 export default function TranscribeForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -33,10 +34,13 @@ export default function TranscribeForm() {
 
     const file = e.target[0].files[0];
     const format = e.target[1].value;
+    const language = e.target[2].value;
+
     const data = new FormData();
     setFormat(format);
     data.append("file", file);
     data.append("format", format);
+    data.append("language", language);
 
     try {
       const res = await fetch("http://localhost:8080/transcribe/", {
@@ -85,6 +89,7 @@ export default function TranscribeForm() {
         <>
           <FileInput />
           <FormatInput />
+          <LanguageInput />
           {error && <span>{error}</span>}
         </>
       ) : (
