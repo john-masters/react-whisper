@@ -8,7 +8,7 @@ export default function Header() {
   // TODO: Add info about the 58 languages supported
   return (
     <HeaderStyles width={width}>
-      <h1>Scribe AI</h1>
+      <h1>Transcribr</h1>
       <p>Transforming speech to text with AI precision</p>
     </HeaderStyles>
   );
