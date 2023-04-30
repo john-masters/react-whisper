@@ -7,6 +7,7 @@ import FormatInput from "../FormatInput";
 import { useAppContext } from '../../AppContext';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
 import LanguageInput from "../LanguageInput";
+import ModeToggle from "../ModeToggle";
 
 export default function TranscribeForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -87,6 +88,7 @@ export default function TranscribeForm() {
 
       {!isLoading ? (
         <>
+          <ModeToggle />
           <FileInput />
           <FormatInput />
           <LanguageInput />
