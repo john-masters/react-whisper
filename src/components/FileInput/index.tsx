@@ -12,31 +12,16 @@ export default function FileInput() {
     setError,
   } = useAppContext();
 
-  const allowedFileTypes = [
-    'audio/mp3',
-    'audio/mp4',
-    'audio/mpeg',
-    'audio/mpga',
-    'audio/x-m4a',
-    'audio/wav',
-    'audio/webm',
-  ];
-
   const handleChange = (e: any) => {
     setError("")
     e.preventDefault();
     const file = e.target.files[0];
-    const fileSizeInMegabytes = file.size / 1000000;
 
-    if (!file || fileSizeInMegabytes > 25) {
-      setError("File size must be less than 25MB");
-      return;
-    }
-
-    if (!allowedFileTypes.includes(file.type)) {
-      setError("File type must be mp3, mp4, mpeg, mpga, m4a, wav, or webm");
-      return;
-    }
+    // const fileSizeInMegabytes = file.size / 1000000;
+    // if (!file || fileSizeInMegabytes > 25) {
+    //   setError("File size must be less than 25MB");
+    //   return;
+    // }
 
     setFile(file);
 
@@ -45,6 +30,12 @@ export default function FileInput() {
     audioObj.addEventListener("loadedmetadata", () => {
       const durationInSeconds = audioObj.duration;
       const durationInMinutes = durationInSeconds / 60;
+
+      if (durationInMinutes > 120) {
+        setError("File duration must be less than 2 hours");
+        setFile(null);
+        return;
+      };
 
       const centsPerMinute: number = 5;
 
@@ -68,9 +59,10 @@ export default function FileInput() {
           id="file"
           type="file"
           name="file"
-          accept=".mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .webm"
+          accept="audio/*,video/*"
           onChange={handleChange}
         />
+
       </label>
 
     </FileInputStyles>
