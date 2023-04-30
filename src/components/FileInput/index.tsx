@@ -17,9 +17,6 @@ export default function FileInput() {
     e.preventDefault();
     const file = e.target.files[0];
 
-    // removed as files are now compressed to 16k mp3
-    // TODO: figure out new limits
-
     // const fileSizeInMegabytes = file.size / 1000000;
     // if (!file || fileSizeInMegabytes > 25) {
     //   setError("File size must be less than 25MB");
@@ -33,6 +30,12 @@ export default function FileInput() {
     audioObj.addEventListener("loadedmetadata", () => {
       const durationInSeconds = audioObj.duration;
       const durationInMinutes = durationInSeconds / 60;
+
+      if (durationInMinutes > 120) {
+        setError("File duration must be less than 2 hours");
+        setFile(null);
+        return;
+      };
 
       const centsPerMinute: number = 5;
 
