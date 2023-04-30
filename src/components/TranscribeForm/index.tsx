@@ -43,7 +43,6 @@ export default function TranscribeForm() {
     data.append("language", language);
 
     try {
-      // change to prod server
       const res = await fetch(
         "https://express-whisper-production.up.railway.app/transcribe/",
         {
