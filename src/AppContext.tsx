@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
 interface AppContextProviderProps {
   children: React.ReactNode;
@@ -31,6 +31,8 @@ interface AppContextInterface {
   setDisabled(disabled: boolean): void;
   clientSecret: string;
   setClientSecret(clientSecret: string): void;
+  mode: "transcribe" | "translate";
+  setMode(mode: "transcribe" | "translate"): void;
 }
 
 const AppContext = createContext<AppContextInterface | undefined>(undefined);
@@ -38,12 +40,14 @@ const AppContext = createContext<AppContextInterface | undefined>(undefined);
 export const useAppContext = () => {
   const context = useContext(AppContext);
   if (!context) {
-    throw new Error('useAppContext must be used within an AppContextProvider');
+    throw new Error("useAppContext must be used within an AppContextProvider");
   }
   return context;
 };
 
-export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
+export const AppContextProvider: React.FC<AppContextProviderProps> = ({
+  children,
+}) => {
   const [transcript, setTranscript] = useState<string>("");
   const [link, setLink] = useState<HTMLAnchorElement | null>(null);
   const [format, setFormat] = useState<string>("text");
@@ -57,9 +61,10 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
   const [disabled, setDisabled] = useState<boolean>(true);
   const [clientSecret, setClientSecret] = useState<string>("");
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    const storedValue = localStorage.getItem('isDarkMode');
+    const storedValue = localStorage.getItem("isDarkMode");
     return storedValue ? JSON.parse(storedValue) : false;
   });
+  const [mode, setMode] = useState<"transcribe" | "translate">("transcribe");
 
   return (
     <AppContext.Provider
@@ -90,6 +95,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
         setDisabled,
         clientSecret,
         setClientSecret,
+        mode,
+        setMode,
       }}
     >
       {children}

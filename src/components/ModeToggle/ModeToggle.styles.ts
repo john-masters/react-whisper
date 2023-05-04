@@ -6,6 +6,16 @@ interface Props {
 }
 
 export const ModeToggleStyles = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  div {
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
+  }
 
   ${({ isDarkMode }: Props) => isDarkMode ? `
   ` : `
