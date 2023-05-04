@@ -11,20 +11,10 @@ export default function App() {
 
   return (
     <AppStyles isDarkMode={isDarkMode}>
-
       <LightDarkMode />
       <Header />
-
-      {!transcript ? (
-        <TranscribeForm />
-      ) : (
-        <TranscriptField />
-      )}
-
-      {file && !succeeded && (
-        <PaymentForm />
-      )}
-
+      {!transcript ? <TranscribeForm /> : <TranscriptField />}
+      {file && !succeeded && <PaymentForm />}
     </AppStyles>
   );
 }

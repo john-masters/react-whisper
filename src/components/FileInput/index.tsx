@@ -43,21 +43,8 @@ export default function FileInput() {
 
   return (
     <FileInputStyles isDarkMode={isDarkMode}>
-      <span>File: </span>
-
-      <label htmlFor="file">
-        <span style={{ color: file ? "green" : "inherit" }}>
-          {file ? file.name : "No file selected"}
-        </span>
-
-        <input
-          id="file"
-          type="file"
-          name="file"
-          accept="audio/*,video/*"
-          onChange={handleChange}
-        />
-      </label>
+      <label>File: </label>
+      <input type="file" />
     </FileInputStyles>
   );
 }

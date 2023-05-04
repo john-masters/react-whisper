@@ -10,10 +10,11 @@ export const TranscribeFormStyles = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  width: 100%;
 
-  ${({ width }: Props) => width > 600 ? `
-    width: 50%;
+  /* ${({ width }: Props) => width > 600 ? `
+    width: 60%;
   ` : `
     width: 100%;
-  `}
+  `} */
 `
