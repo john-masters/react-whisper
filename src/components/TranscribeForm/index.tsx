@@ -33,20 +33,22 @@ export default function TranscribeForm() {
   }, [succeeded]);
 
   const handleSubmit = async (e: any) => {
-    console.log(e);
     e.preventDefault();
     setIsLoading(true);
 
+    const data = new FormData();
     const file = e.target[2].files[0];
     const format = e.target[3].value;
-    const language = e.target[4] && e.target[4].value;
-
-    const data = new FormData();
     setFormat(format);
+
     data.append("mode", mode);
     data.append("file", file);
     data.append("format", format);
-    if (language) data.append("language", language);
+
+    if (mode === "transcribe") {
+      const language = e.target[4].value;
+      data.append("language", language);
+    }
 
     try {
       const res = await fetch("http://localhost:8080/transcribe/", {
