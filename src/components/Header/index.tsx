@@ -1,6 +1,6 @@
-import React from 'react'
-import { HeaderStyles } from './Header.styles'
-import { useWindowWidth } from '../../hooks/useWindowWidth';
+import React from "react";
+import { HeaderStyles } from "./Header.styles";
+import { useWindowWidth } from "../../hooks/useWindowWidth";
 
 export default function Header() {
   const width = useWindowWidth();
@@ -8,12 +8,13 @@ export default function Header() {
   // TODO: Add info about the 58 languages supported
   return (
     <HeaderStyles width={width}>
-      <h1>Scribe AI</h1>
+      <a href="/">
+        <h1>Scribe AI</h1>
+      </a>
       <p>Transforming speech to text with AI precision</p>
     </HeaderStyles>
   );
 }
-
 
 // Afrikaans, Arabic, Armenian, Azerbaijani, Belarusian,
 // Bosnian, Bulgarian, Catalan, Chinese, Croatian,

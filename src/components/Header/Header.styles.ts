@@ -12,6 +12,10 @@ export const HeaderStyles = styled.header`
   align-items: center;
   text-align: center;
   gap: 0.5rem;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
   h1 {
     line-height: 100%;
     font-size: xxx-large;

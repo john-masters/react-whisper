@@ -5,6 +5,10 @@ interface Props {
 }
 
 export const FileInputStyles = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
   label {
     padding: 0.2rem 0.5rem;
     line-height: 150%;
@@ -26,11 +30,15 @@ export const FileInputStyles = styled.div`
   }
 
   ${({ isDarkMode }: Props) => isDarkMode ? `
-    border: 1px solid white;
-    border-radius: 8px;
+    label {
+      border: 1px solid white;
+      border-radius: 8px;
+    }
   ` : `
-    border: 1px solid black;
-    border-radius: 8px;
+    label {
+      border: 1px solid black;
+      border-radius: 8px;
+    }
   `}
 
 `
