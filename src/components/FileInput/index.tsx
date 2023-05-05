@@ -43,8 +43,8 @@ export default function FileInput() {
 
   return (
     <FileInputStyles isDarkMode={isDarkMode}>
-      <label>File: </label>
-      <input type="file" />
+      <label htmlFor="file">File: </label>
+      <input type="file" name="file" id="file" />
     </FileInputStyles>
   );
 }
