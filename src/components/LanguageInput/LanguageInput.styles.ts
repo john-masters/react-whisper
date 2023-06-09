@@ -8,8 +8,14 @@ export const LanguageInputStyles = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  label {
+    width: 120px;
+    text-align: end;
+  }
   select {
+    width: 190px;
     font-size: medium;
+    cursor: pointer;
   }
   #language {
     padding: 0.2rem 0.5rem;
