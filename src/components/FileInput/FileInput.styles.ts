@@ -5,32 +5,36 @@ interface Props {
 }
 
 export const FileInputStyles = styled.div`
-  label {
-    padding: 0.2rem 0.5rem;
-    line-height: 150%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   input {
-    display: none;
+    width: 190px;
+    border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    padding: 3.2px 8px;
+    cursor: pointer;
+    &::file-selector-button {
+      display: none;
+    }
   }
-
-  span {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 20ch;
+  label {
+    text-align: end;
+    width: 120px;
   }
 
   ${({ isDarkMode }: Props) => isDarkMode ? `
-    border: 1px solid white;
-    border-radius: 8px;
+    input {
+        border: 1px solid #fff;
+        background-color: #000;
+        color: #fff;
+    }
   ` : `
-    border: 1px solid black;
-    border-radius: 8px;
+    input {
+        border: 1px solid #000;
+        background-color: #fff;
+        color: #000;
+    }
   `}
 
 `

@@ -8,10 +8,17 @@ export const FormatInputStyles = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  label {
+    width: 120px;
+    text-align: end;
+  }
   select {
+    width: 190px;
     font-size: medium;
+    cursor: pointer;
   }
   #format {
+    font-size: medium;
     padding: 0.2rem 0.5rem;
     border-radius: 8px;
   }

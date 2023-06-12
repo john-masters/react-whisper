@@ -1,19 +1,13 @@
-import React from 'react'
-import { FileInputStyles } from './FileInput.styles'
-import { useAppContext } from '../../AppContext';
+import React from "react";
+import { FileInputStyles } from "./FileInput.styles";
+import { useAppContext } from "../../AppContext";
 
 export default function FileInput() {
-
-  const {
-    setPriceInCents,
-    file,
-    setFile,
-    isDarkMode,
-    setError,
-  } = useAppContext();
+  const { setPriceInCents, file, setFile, isDarkMode, setError } =
+    useAppContext();
 
   const handleChange = (e: any) => {
-    setError("")
+    setError("");
     e.preventDefault();
     const file = e.target.files[0];
 
@@ -35,7 +29,7 @@ export default function FileInput() {
         setError("File duration must be less than 2 hours");
         setFile(null);
         return;
-      };
+      }
 
       const centsPerMinute: number = 5;
 
@@ -49,22 +43,14 @@ export default function FileInput() {
 
   return (
     <FileInputStyles isDarkMode={isDarkMode}>
-
-      <label htmlFor="file">
-        <span style={{ color: file ? "green" : "inherit" }}>
-          {file ? file.name : "Upload file"}
-        </span>
-
-        <input
-          id="file"
-          type="file"
-          name="file"
-          accept="audio/*,video/*"
-          onChange={handleChange}
-        />
-
-      </label>
-
+      <label htmlFor="file">File:</label>
+      <input
+        type="file"
+        name="file"
+        id="file"
+        onChange={handleChange}
+        // defaultValue="hello"
+      />
     </FileInputStyles>
-  )
+  );
 }
