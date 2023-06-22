@@ -12,7 +12,7 @@ export default function ModeDescription() {
     <ModeDescriptionStyles>
       {mode === "transcribe"
         ? "Transcribes audio into the input language."
-        : "Translates audio into into English."}
+        : "Translates audio into English."}
     </ModeDescriptionStyles>
   );
 }
