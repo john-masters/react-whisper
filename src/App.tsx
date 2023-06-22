@@ -1,9 +1,11 @@
 import TranscribeForm from "./containers/Transcription/TranscribeForm";
 import Header from "./components/Header";
 import TranscriptField from "./containers/Transcription/TranscriptField";
-import { AppStyles } from "./App.styles";
 import PaymentForm from "./containers/Payment/PaymentForm";
 import LightDarkMode from "./components/LightDarkMode";
+import SubmitButton from "./containers/Transcription/SubmitButton";
+
+import { AppStyles } from "./App.styles";
 import { useAppContext } from "./AppContext";
 
 export default function App() {
@@ -14,7 +16,9 @@ export default function App() {
       <LightDarkMode />
       <Header />
       {!transcript ? <TranscribeForm /> : <TranscriptField />}
-      {file && !succeeded && <PaymentForm />}
+
+      {/* uncomment to turn on payment */}
+      {/* {file && !succeeded && <PaymentForm />} */}
     </AppStyles>
   );
 }
