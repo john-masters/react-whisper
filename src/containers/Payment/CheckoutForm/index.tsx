@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { CheckoutFormStyles } from "./CheckoutForm.styles";
 import type { StripeCardElement } from "@stripe/stripe-js";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { useAppContext } from "../../AppContext";
+import { useAppContext } from "../../../AppContext";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -100,7 +100,6 @@ export default function CheckoutForm() {
       paymentError={paymentError}
       isDarkMode={isDarkMode}
     >
-
       <CardElement
         id="card-element"
         options={cardStyle}
@@ -109,11 +108,9 @@ export default function CheckoutForm() {
 
       <button disabled={processing || disabled || succeeded} id="submit">
         <span id="button-text">
-          {processing ? (
-            'Processing...'
-          ) : (
-            `Pay $${(priceInCents * 0.01).toFixed(2)} to transcribe now`
-          )}
+          {processing
+            ? "Processing..."
+            : `Pay $${(priceInCents * 0.01).toFixed(2)} to transcribe now`}
         </span>
       </button>
 
@@ -123,7 +120,6 @@ export default function CheckoutForm() {
           {paymentError}
         </div>
       )}
-
     </CheckoutFormStyles>
   );
 }

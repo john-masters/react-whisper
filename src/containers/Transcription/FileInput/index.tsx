@@ -1,6 +1,6 @@
 import React from "react";
 import { FileInputStyles } from "./FileInput.styles";
-import { useAppContext } from "../../AppContext";
+import { useAppContext } from "../../../AppContext";
 
 export default function FileInput() {
   const { setPriceInCents, file, setFile, isDarkMode, setError } =

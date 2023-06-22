@@ -1,6 +1,6 @@
 import React from "react";
-import { useAppContext } from "../../AppContext";
-import { useWindowWidth } from "../../hooks/useWindowWidth";
+import { useAppContext } from "../../../AppContext";
+import { useWindowWidth } from "../../../hooks/useWindowWidth";
 import { ModeDescriptionStyles } from "./ModeDescription.styles";
 
 export default function ModeDescription() {
