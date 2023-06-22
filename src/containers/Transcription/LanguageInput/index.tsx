@@ -1,7 +1,7 @@
 import React from "react";
 import { LanguageInputStyles } from "./LanguageInput.styles";
-import { useAppContext } from "../../AppContext";
-import { languages } from "../../utils/languages";
+import { useAppContext } from "../../../AppContext";
+import { languages } from "../../../utils/languages";
 
 export default function LanguageInput() {
   const { isDarkMode } = useAppContext();

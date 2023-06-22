@@ -1,14 +1,17 @@
-import React, { useEffect, useRef } from "react";
-import { TranscribeFormStyles } from "./TranscribeForm.styles";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import FileInput from "../FileInput";
 import FormatInput from "../FormatInput";
-import { useAppContext } from "../../AppContext";
-import { useWindowWidth } from "../../hooks/useWindowWidth";
 import LanguageInput from "../LanguageInput";
 import ModeToggle from "../ModeToggle";
 import ModeDescription from "../ModeDescription";
+
+import { useAppContext } from "../../../AppContext";
+import { useWindowWidth } from "../../../hooks/useWindowWidth";
+
+import { useEffect, useRef } from "react";
+import { TranscribeFormStyles } from "./TranscribeForm.styles";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import SubmitButton from "../SubmitButton";
 
 export default function TranscribeForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -114,10 +117,13 @@ export default function TranscribeForm() {
           <FormatInput />
           {mode === "transcribe" && <LanguageInput />}
           {error && <span>{error}</span>}
+
+          {/* comment out submit button to turn on payment */}
+          <SubmitButton />
         </>
       ) : (
         <>
-          <span>Payment Success. Please wait...</span>
+          <span>Please wait...</span>
           <FontAwesomeIcon icon={faSpinner} size="2xl" spin />
         </>
       )}

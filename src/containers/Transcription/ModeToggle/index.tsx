@@ -1,7 +1,7 @@
 import React from "react";
-import { useAppContext } from "../../AppContext";
+import { useAppContext } from "../../../AppContext";
 import { ModeToggleStyles } from "./ModeToggle.styles";
-import { useWindowWidth } from "../../hooks/useWindowWidth";
+import { useWindowWidth } from "../../../hooks/useWindowWidth";
 
 export default function ModeToggle() {
   const { isDarkMode, mode } = useAppContext();

@@ -1,6 +1,6 @@
 import React from "react";
-import { useAppContext } from "../../AppContext";
-import { useWindowWidth } from "../../hooks/useWindowWidth";
+import { useAppContext } from "../../../AppContext";
+import { useWindowWidth } from "../../../hooks/useWindowWidth";
 import { ModeDescriptionStyles } from "./ModeDescription.styles";
 
 export default function ModeDescription() {
@@ -12,7 +12,7 @@ export default function ModeDescription() {
     <ModeDescriptionStyles>
       {mode === "transcribe"
         ? "Transcribes audio into the input language."
-        : "Translates audio into into English."}
+        : "Translates audio into English."}
     </ModeDescriptionStyles>
   );
 }
