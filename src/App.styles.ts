@@ -7,14 +7,14 @@ interface Props {
 
 export const AppStyles = styled.div<Props>`
   height: 100vh;
-  /* width: 100%; */
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   font-size: medium;
-  padding: ${({ width }) => 
-    `${width > 1000 ?  width / 8 : width / 2}px`} 1rem 0;
+  padding: 0 2rem;
 
 
   ${({ isDarkMode }: Props) => isDarkMode ? `
