@@ -110,6 +110,17 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     });
   }, []);
 
+  useEffect(() => {
+    if (!customerData) return;
+    fetch("http://localhost:8080/tracking", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(customerData),
+    });
+  }, [customerData]);
+
   return (
     <AppContext.Provider
       value={{
