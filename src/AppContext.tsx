@@ -112,7 +112,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 
   useEffect(() => {
     if (!customerData) return;
-    fetch("http://localhost:8080/tracking", {
+    fetch("https://express-whisper-production.up.railway.app/tracking", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
