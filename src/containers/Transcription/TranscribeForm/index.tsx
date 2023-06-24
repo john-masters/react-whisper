@@ -27,6 +27,7 @@ export default function TranscribeForm() {
     setIsLoading,
     setMode,
     mode,
+    customerData,
   } = useAppContext();
 
   useEffect(() => {
@@ -52,6 +53,8 @@ export default function TranscribeForm() {
       const language = e.target[4].value;
       data.append("language", language);
     }
+
+    data.append("customerData", JSON.stringify(customerData));
 
     try {
       const res = await fetch("http://localhost:8080/transcribe/", {

@@ -1,4 +1,23 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
+
+type customerDataType = {
+  fl: string;
+  h: string;
+  ip: string;
+  ts: string;
+  visit_scheme: string;
+  uag: string;
+  colo: string;
+  sliver: string;
+  http: string;
+  loc: string;
+  tls: string;
+  sni: string;
+  warp: string;
+  gateway: string;
+  rbi: string;
+  kex: string;
+};
 
 interface AppContextProviderProps {
   children: React.ReactNode;
@@ -33,6 +52,8 @@ interface AppContextInterface {
   setClientSecret(clientSecret: string): void;
   mode: "transcribe" | "translate";
   setMode(mode: "transcribe" | "translate"): void;
+  customerData: customerDataType | null;
+  setCustomerData(customerData: customerDataType | null): void;
 }
 
 const AppContext = createContext<AppContextInterface | undefined>(undefined);
@@ -65,6 +86,29 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     return storedValue ? JSON.parse(storedValue) : false;
   });
   const [mode, setMode] = useState<"transcribe" | "translate">("transcribe");
+  const [customerData, setCustomerData] = useState<customerDataType | null>(
+    null
+  );
+
+  useEffect(() => {
+    let newObj = {};
+    fetch("https://www.cloudflare.com/cdn-cgi/trace").then((response) => {
+      response
+        .text()
+        .then((text) => {
+          text
+            .trimEnd()
+            .split("\n")
+            .map((line) => {
+              const [key, value] = line.split("=");
+              newObj = { ...newObj, [key]: value };
+            });
+        })
+        .then(() => {
+          setCustomerData(newObj as customerDataType);
+        });
+    });
+  }, []);
 
   return (
     <AppContext.Provider
@@ -97,6 +141,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
         setClientSecret,
         mode,
         setMode,
+        customerData,
+        setCustomerData,
       }}
     >
       {children}
