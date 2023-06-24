@@ -25,8 +25,7 @@ export const TranscriptFieldStyles = styled.div`
     padding: 0.5rem;
     border-radius: 8px;
     white-space: pre-wrap;
-    max-height: ${({ width }) => 
-      `${width > 1000 ?  width / 4 : width / 2}px`};
+    max-height: 50vh;
     overflow-y: scroll;
     width: 100%;
   }
