@@ -66,7 +66,7 @@ export default function CheckoutForm() {
 
   const handleChange = async (e: any) => {
     // Listen for changes in the CardElement
-    // and display any errors as the customer types their card details
+    // and display any errors as the user types their card details
     setDisabled(e.empty);
     setPaymentError(e.error ? e.error.message : "");
   };

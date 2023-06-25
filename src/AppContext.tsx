@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-type customerDataType = {
+type userDataType = {
   fl: string;
   h: string;
   ip: string;
@@ -52,8 +52,8 @@ interface AppContextInterface {
   setClientSecret(clientSecret: string): void;
   mode: "transcribe" | "translate";
   setMode(mode: "transcribe" | "translate"): void;
-  customerData: customerDataType | null;
-  setCustomerData(customerData: customerDataType | null): void;
+  userData: userDataType | null;
+  setUserData(userData: userDataType | null): void;
 }
 
 const AppContext = createContext<AppContextInterface | undefined>(undefined);
@@ -86,9 +86,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     return storedValue ? JSON.parse(storedValue) : false;
   });
   const [mode, setMode] = useState<"transcribe" | "translate">("transcribe");
-  const [customerData, setCustomerData] = useState<customerDataType | null>(
-    null
-  );
+  const [userData, setUserData] = useState<userDataType | null>(null);
 
   useEffect(() => {
     let newObj = {};
@@ -105,21 +103,21 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
             });
         })
         .then(() => {
-          setCustomerData(newObj as customerDataType);
+          setUserData(newObj as userDataType);
         });
     });
   }, []);
 
   useEffect(() => {
-    if (!customerData) return;
+    if (!userData) return;
     fetch("https://express-whisper-production.up.railway.app/tracking", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(customerData),
+      body: JSON.stringify(userData),
     });
-  }, [customerData]);
+  }, [userData]);
 
   return (
     <AppContext.Provider
@@ -152,8 +150,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
         setClientSecret,
         mode,
         setMode,
-        customerData,
-        setCustomerData,
+        userData,
+        setUserData,
       }}
     >
       {children}

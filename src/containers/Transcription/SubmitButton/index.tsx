@@ -4,7 +4,7 @@ import { SubmitButtonStyles } from "./SubmitButton.styles";
 import { useWindowWidth } from "../../../hooks/useWindowWidth";
 
 export default function SubmitButton() {
-  const { isDarkMode, mode } = useAppContext();
+  const { isDarkMode, mode, file } = useAppContext();
 
   const width = useWindowWidth();
 
@@ -13,6 +13,7 @@ export default function SubmitButton() {
       <input
         id="submitButton"
         type="submit"
+        disabled={!file}
         // hacky way to capitalise
         value={mode.charAt(0).toUpperCase() + mode.slice(1)}
       />
