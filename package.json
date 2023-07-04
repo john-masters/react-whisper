@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build --mode=production",
     "preview": "vite preview",
-    "start": "vite preview --host"
+    "start": "serve build -s -n -L -p $PORT"
   },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
@@ -16,6 +16,7 @@
     "@stripe/stripe-js": "^1.52.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "serve": "^14.2.0",
     "styled-components": "^5.3.9",
     "uuid": "^9.0.0"
   },
