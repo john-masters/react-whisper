@@ -25,11 +25,11 @@ export default function FileInput() {
       const durationInSeconds = audioObj.duration;
       const durationInMinutes = durationInSeconds / 60;
 
-      if (durationInMinutes > 120) {
-        setError("File duration must be less than 2 hours");
-        setFile(null);
-        return;
-      }
+      // if (durationInMinutes > 120) {
+      //   setError("File duration must be less than 2 hours");
+      //   setFile(null);
+      //   return;
+      // }
 
       const centsPerMinute: number = 5;
 
