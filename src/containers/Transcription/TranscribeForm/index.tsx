@@ -119,7 +119,7 @@ export default function TranscribeForm() {
           {error && <span>{error}</span>}
 
           {/* comment out submit button to turn on payment */}
-          <SubmitButton />
+          {/* <SubmitButton /> */}
         </>
       ) : (
         <>

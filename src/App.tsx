@@ -20,7 +20,7 @@ export default function App() {
       {!transcript ? <TranscribeForm /> : <TranscriptField />}
 
       {/* uncomment to turn on payment */}
-      {/* {file && !succeeded && <PaymentForm />} */}
+      {file && !succeeded && <PaymentForm />}
     </AppStyles>
   );
 }
